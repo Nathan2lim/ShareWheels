@@ -1,0 +1,16 @@
+
+{% extends "SoundlytiApp/base.html" %} {% block title %} HomePage {% endblock %}
+{% block main %}
+<h2>Upload JSON File</h2>
+  
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.json_file.label_tag }}  <!-- Affiche l'étiquette du champ fichier -->
+  {{ form.json_file }}  <!-- Affiche le champ de téléchargement de fichier -->
+  <button type="submit">Upload</button>
+</form>
+
+{% if message %}
+  <p>{{ message }}</p>
+{% endif %} 
+{% endblock %}

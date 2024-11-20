@@ -1,0 +1,22 @@
+{% extends "SoundlytiApp/base.html" %} {% block title %} HomePage {% endblock %}
+{% block main %}
+
+<h2>Erreurs lors du traitement du fichier JSON</h2>
+  
+{% if error_entries %}
+  <ul>
+    {% for error in error_entries %}
+      <li>
+        {% if error.trackName %}
+          <strong>{{ error.trackName }}</strong> : {{ error.error }}
+        {% else %}
+          {{ error.error }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Aucune erreur à afficher.</p>
+{% endif %}
+
+{% endblock %}
