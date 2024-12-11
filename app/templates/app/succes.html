@@ -1,0 +1,19 @@
+{% extends "app/base.html" %} {% block title %} Succes {% endblock %}
+{% block main %}
+
+<h1> Votre réservation a été effectuée avec succès ! </h1>
+<p> Vous pouvez consulter les détails de votre réservation dans votre espace personnel. </p>
+<p> Voici la liste des réservations effectuées : <p/>
+    {% for ticket in tickets %}
+    <div class="ticket">
+        <img src="{{ ticket.image }}" alt="{{ ticket.title }}">
+        <div class="ticket-content">
+            <h2 class="ticket-title">{{ ticket.title }}</h2>
+            <p class="ticket-description">{{ ticket.description }}</p>
+            <p class="ticket-price">{{ ticket.price }} €</p>
+        </div>
+    </div>
+    {% endfor %}
+
+
+{% endblock %}

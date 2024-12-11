@@ -86,20 +86,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 
 # Internationalization
@@ -117,9 +117,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
+# Inclure les répertoires où Django cherchera les fichiers statiques
+STATICFILES_DIRS = [
+    BASE_DIR / "app/static",        # Pour l'application "app"
+    BASE_DIR / "applicompte/static" # Pour l'application "applicompte"
+]
+STATIC_URL = "/static/"  # URL pour servir les fichiers
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Destination des fichiers collectés
+
+STATIC_VERSION = "1.0"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# settings.py
+STRIPE_SECRET_KEY = 'sk_test_51QNEqeJw2gC2InngK042I24cK7aHs2scMz05jv0hfJD3Z72hz06ZpvXQEwZKrc977eQu0CidyqmyRsBtWdmOOUB300qn1XCQNV'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51QNEqeJw2gC2InnghNhnbqDF8fXCrfckB2YSp9GEUlaK6c8X83E4chaWFNnian1uLRx5wlnBAGwghx06phBFrbwv00rqA2rLwu'

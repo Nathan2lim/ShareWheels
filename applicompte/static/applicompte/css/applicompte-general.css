@@ -1,0 +1,82 @@
+/* Style pour le corps principal */
+main {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+}
+
+/* Conteneurs communs */
+.container, .div-logout {
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.1);
+    padding: 40px 60px;
+    text-align: center;
+}
+
+/* Boutons communs */
+button, a {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #5563DE;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+button:hover, a:hover {
+    background-color: #4053AB;
+}
+
+/* Champs de formulaire */
+.form-control {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+label {
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Messages */
+ul.messages {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+ul.messages li {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+ul.messages li.info {
+    background-color: #017bff;
+}
+
+ul.messages li.success {
+    background-color: #28a745;
+}
+
+ul.messages li.warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+ul.messages li.error {
+    background-color: #dc3545;
+}

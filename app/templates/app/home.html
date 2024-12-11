@@ -1,7 +1,44 @@
-{% extends "app/base.html" %} {% block title %} HomePage {% endblock %}
+{% extends "app/base.html" %}
+{% block title %}Accueil - Festival Automobile{% endblock %}
+{%load static%}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'app/css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/homepage.css' %}">
+{% endblock %}
+
 {% block main %}
-<h2>Liste des Hrefs</h2>
+<div class="homepage-header">
+    <h1>Bienvenue au Festival Automobile</h1>
+    <p>Un voyage inoubliable dans le monde des voitures de luxe et des sports automobiles.</p>
+</div>
 
+<div class="homepage-sections">
+    <div class="section">
+        <img src="{% static 'app/images/events.jpg' %}" alt="Événements">
+        <h2>Événements</h2>
+        <p>Découvrez les événements passionnants, y compris des démonstrations en direct, des courses, et bien plus.</p>
+        <a href="{% url 'app:home' %}" class="btn">Explorer</a>
+    </div>
 
+    <div class="section">
+        <img src="{% static 'app/images/tickets.jpg' %}" alt="Réservation de billets">
+        <h2>Réservation</h2>
+        <p>Réservez vos billets pour vivre l'action de près.</p>
+        <a href="{% url 'app:reservation' %}" class="btn">Réserver</a>
+    </div>
 
+    <div class="section">
+        <img src="{% static 'app/images/gallery.jpg' %}" alt="Galerie">
+        <h2>Galerie</h2>
+        <p>Admirez les images exclusives des véhicules et des événements passés.</p>
+        <a href="{% url 'app:home' %}" class="btn">Voir la galerie</a>
+    </div>
+
+    <div class="section">
+        <img src="{% static 'app/images/contact.jpg' %}" alt="Contact">
+        <h2>Contact</h2>
+        <p>Nous sommes là pour répondre à toutes vos questions. Contactez-nous dès maintenant.</p>
+        <a href="{% url 'app:home' %}" class="btn">Contactez-nous</a>
+    </div>
+</div>
 {% endblock %}

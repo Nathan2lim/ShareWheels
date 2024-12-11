@@ -1,0 +1,36 @@
+{% extends "app/base.html" %} {% block title %} Rerservation {% endblock %}
+{% block main %}
+{%load static%}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'app/css/general.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/reservation.css' %}?v={{ STATIC_VERSION }}">
+
+{% endblock %}
+
+</head>
+<body>
+    <div class="container">
+        <h1>Liste des Tickets Disponibles</h1>
+        <div class="ticket-list">
+            {% for ticket in tickets %}
+                <div class="ticket">
+                    {% if ticket.image %}
+                        <img src="{{ ticket.image.url }}" alt="{{ ticket.nom_type }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200?text=Pas+Image" alt="Image placeholder">
+                    {% endif %}
+                    <div class="ticket-content">
+                        <h2 class="ticket-title">{{ ticket.nom_type }}</h2>
+                        <p class="ticket-description">{{ ticket.description }}</p>
+                        <p class="ticket-price">{{ ticket.tarif }} €</p>
+                    </div>
+
+                    <a href="{% url 'app:create_payment' ticket.id %}" class="btn btn-primary">Réserver</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+
+{% endblock %}
