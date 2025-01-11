@@ -3,8 +3,8 @@
 {% extends "app/base.html" %} {% block title %} Inscription {% endblock %}
 {% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/general.css' %}">
-<link rel="stylesheet" href="{% static 'css/register.css' %}">
+<link rel="stylesheet" href="{% static 'css/applicompte-general.css' %}">
+<link rel="stylesheet" href="{% static 'css/applicompte-register.css' %}">
 {% endblock %}
 
 
@@ -16,6 +16,6 @@
         {{ form.as_p }}
         <button type="submit">S'inscrire</button>
     </form>
-    <a href="{% url 'login' %}">Déjà inscrit ? Connectez-vous ici.</a>
+    <a href="{% url 'applicompte:login' %}">Déjà inscrit ? Connectez-vous ici.</a>
 
 {% endblock %}

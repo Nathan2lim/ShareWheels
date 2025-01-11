@@ -9,18 +9,35 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:home' %}">Accueil</a>
                 </li>
-                <li class="nav-item">
+                {% comment %} <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:home' %}">Événements</a>
-                </li>
+                </li> {% endcomment %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:reservation' %}">Réservation</a>
                 </li>
+                {% endif %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:home' %}">Galerie</a>
                 </li>
-                <li class="nav-item">
+                {% comment %} <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:home' %}">Contact</a>
+                </li> {% endcomment %}
+
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'applicompte:logout' %}">Déconnexion</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'applicompte:login' %}">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'applicompte:register' %}">Inscription</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>

@@ -4,13 +4,13 @@ from applicompte import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+app_name = 'applicompte'  # Nom du namespace
 
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name = 'applicompte/login.html'), name = 'login'),
-    path('logout/', views.deconnexion, name = 'logout'),
-    path('connexion/', views.connexion),
-    path('inscription/', views.inscription, name='inscription'),
-
+    path('logout/', views.logout, name = 'logout'),
+    path('register/', views.register, name='register'),
+    path('forgetpassword/', views.forgetpassword, name='forgetpassword'),
 ]
 

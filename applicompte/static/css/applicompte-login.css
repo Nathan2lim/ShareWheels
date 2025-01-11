@@ -1,0 +1,12 @@
+.container {
+    margin-top: 100px;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

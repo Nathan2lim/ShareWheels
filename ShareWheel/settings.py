@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3f600dvw$qm0*h*kuqml0saqvorq*h)9e6(c8f4#(ugu$9yi(6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -71,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ShareWheel.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -105,7 +104,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
@@ -124,7 +123,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "applicompte/static" # Pour l'application "applicompte"
 ]
 STATIC_URL = "/static/"  # URL pour servir les fichiers
-STATIC_ROOT = BASE_DIR / "staticfiles"  # Destination des fichiers collectés
+STATIC_ROOT = BASE_DIR / "fichierstatic"  # Destination des fichiers collectés
 
 STATIC_VERSION = "1.0"
 

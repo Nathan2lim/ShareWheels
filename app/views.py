@@ -13,8 +13,6 @@ def reservation(request):
     lesTickets = TypeTicket.objects.all()
     return render(request, 'app/reservation.html', {'tickets': lesTickets})
 
-
-
 def create_payment(request, ticket_type_id):
 
     # Récupérer le ticket sélectionné
