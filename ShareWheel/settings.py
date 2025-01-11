@@ -136,3 +136,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
 STRIPE_SECRET_KEY = 'sk_test_51QNEqeJw2gC2InngK042I24cK7aHs2scMz05jv0hfJD3Z72hz06ZpvXQEwZKrc977eQu0CidyqmyRsBtWdmOOUB300qn1XCQNV'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51QNEqeJw2gC2InnghNhnbqDF8fXCrfckB2YSp9GEUlaK6c8X83E4chaWFNnian1uLRx5wlnBAGwghx06phBFrbwv00rqA2rLwu'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
