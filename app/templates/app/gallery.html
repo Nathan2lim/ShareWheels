@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/applicompte-general.css' %}">
+<link rel="stylesheet" href="{% static 'css/applicompte-login.css' %}">
+
+{% endblock %}
+
+{% block title %} Connexion {% endblock %}
+{% block main %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Galerie de l'événement</h1>
+    <a href="{% url 'app:add_photo' %}" class="btn btn-primary mb-4">Ajouter une photo</a>
+    <div class="row">
+        {% for photo in photos %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}">
+                {% if photo.title %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ photo.title }}</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

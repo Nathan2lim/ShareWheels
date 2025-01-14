@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3f600dvw$qm0*h*kuqml0saqvorq*h)9e6(c8f4#(ugu$9yi(6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'applicompte',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -138,21 +139,29 @@ STRIPE_SECRET_KEY = 'sk_test_51QNEqeJw2gC2InngK042I24cK7aHs2scMz05jv0hfJD3Z72hz0
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51QNEqeJw2gC2InnghNhnbqDF8fXCrfckB2YSp9GEUlaK6c8X83E4chaWFNnian1uLRx5wlnBAGwghx06phBFrbwv00rqA2rLwu'
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/django.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': '/var/log/django.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'gilbertnathan123@gmail.com'
+EMAIL_HOST_PASSWORD = 'tbfg vubb echx rpju'
+DEFAULT_FROM_EMAIL = 'noreply@sherwheels.fr'

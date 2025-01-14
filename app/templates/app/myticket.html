@@ -1,0 +1,74 @@
+{% extends "app/base.html" %} {% block title %} Rerservation {% endblock %}
+{% block main %}
+{%load static%}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/general.css' %}">
+<link rel="stylesheet" href="{% static 'css/reservation.css' %}">
+
+{% endblock %}
+    <div class="container mt-5">
+        <h1>Mes Tickets</h1>
+        
+        <!-- Section : Tickets de l'utilisateur -->
+        <h2 class="mt-4">Mes Tickets</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date de Création</th>
+                    <th>Type de Ticket</th>
+                    <th>Statut</th>
+                    <th>Prenom</th>
+                    <th>Nom</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.date_creation|date:"d/m/Y H:i" }}</td>
+                    <td>{{ ticket.type_ticket.nom_type }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td>{{ ticket.prenom }}</td>
+                    <td>{{ ticket.name }}</td>
+                    <td> <a href="{% url 'app:ticket_detail' ticket_id=ticket.id %}">Détail</a></td>
+
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Aucun ticket trouvé.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Section : Types de tickets disponibles -->
+        <h2 class="mt-5">Types de Tickets Disponibles</h2>
+        <div class="row">
+            {% for type in types %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if type.image %}
+                    <img src="{{ type.image.url }}" class="card-img-top" alt="{{ type.nom_type }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ type.nom_type }}</h5>
+                        <p class="card-text">{{ type.description }}</p>
+                        <p class="card-text"><strong>Tarif :</strong> {{ type.tarif }} €</p>
+                        <a href="{% url 'app:create_payment' type.id %}" class="btn btn-primary">Réserver</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p>Aucun type de ticket disponible.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

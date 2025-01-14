@@ -27,3 +27,19 @@ class UserCreationSW(UserCreationForm):
         if commit:
             user.save()  # Sauvegarder l'utilisateur
         return user
+
+
+class StandardUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['imatriculation']
+
+class PremiumUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['imatriculation', 'type_user']
+
+class AdminUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = '__all__'

@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/applicompte-general.css' %}">
+<link rel="stylesheet" href="{% static 'css/applicompte-login.css' %}">
+
+{% endblock %}
+
+{% block title %} Connexion {% endblock %}
+{% block main %}
+<div class="container mt-5">
+    <h1>Liste des Types de Tickets</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Tarif</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for type in types %}
+            <tr>
+                <td>{{ type.nom_type }}</td>
+                <td>{{ type.tarif }}</td>
+                <td>{{ type.description }}</td>
+                <td>
+                    {% if type.image %}
+                    <img src="{{ type.image.url }}" alt="Image" style="width: 100px; height: auto;">
+                    {% else %}
+                    Aucun
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Aucun type de ticket trouvé.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'app:add_type_ticket' %}" class="btn btn-success">Ajouter un Type de Ticket</a>
+</div>
+</div>
+{% endblock %}

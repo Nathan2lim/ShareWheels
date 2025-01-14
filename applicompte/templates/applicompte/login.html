@@ -8,27 +8,17 @@
 
 {% block title %} Connexion {% endblock %}
 {% block main %}
-<div class="container">
-    <p>Connexion</p>
-    {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
 
-    <form id="form_login" method="post" action="/connexion/">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="id_username">Identifiant</label>
-            <input type="text" class="form-control" id="id_username" name="username" placeholder="Votre identifiant">
-        </div>
-        <div class="mb-3">
-            <label for="id_password">Mot de passe</label>
-            <input type="password" class="form-control" id="id_password" name="password" placeholder="Votre mot de passe">
-        </div>
-        <button type="submit" class="btn btn-primary">Se connecter</button>
-    </form>
-</div>
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Email</label>
+    <input type="email" name="username" id="username" required>
+    
+    <label for="password">Mot de passe</label>
+    <input type="password" name="password" id="password" required>
+    
+    <button type="submit">Se connecter</button>
+</form>
+
+<div>
 {% endblock %}

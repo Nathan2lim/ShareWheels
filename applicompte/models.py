@@ -6,7 +6,14 @@ class UserProfile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     imatriculation = models.CharField(max_length=7, blank=True, null=True)
-    type_user = models.IntegerField(default=0)
+    type_user = models.IntegerField(
+        default=0,
+        choices=[
+            (0, 'Standard'),
+            (1, 'Premium'),
+            (2, 'Admin'),
+        ]
+    )
 
     def __str__(self):
         return self.email

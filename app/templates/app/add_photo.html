@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/applicompte-general.css' %}">
+<link rel="stylesheet" href="{% static 'css/applicompte-logout.css' %}">
+{% endblock %}
+
+{% block title %} Au revoir {% endblock %}
+
+{% block main %}
+<div class="container mt-5">
+    <h1>Ajouter une photo</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <a href="{% url 'app:gallery' %}" class="btn btn-secondary">Retour à la galerie</a>
+    </form>
+</div>
+{% endblock %}

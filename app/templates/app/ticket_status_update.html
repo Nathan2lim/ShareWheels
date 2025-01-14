@@ -1,0 +1,28 @@
+{% extends "app/base.html" %}
+{% block title %}Accueil - Festival Automobile{% endblock %}
+{%load static%}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="container mt-5">
+    <h1>Modifier le statut du Ticket</h1>
+    <p><strong>ID :</strong> {{ ticket.id }}</p>
+    <p><strong>Type :</strong> {{ ticket.type_ticket.nom_type }}</p>
+    <p>
+        <strong>Statut actuel:</strong>
+        {% if ticket.status == "0" %}
+            Utilisable
+        {% else %}
+            non utilisable
+        {% endif %}
+    </p>   
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="action" value="down" class="btn btn-danger">Marquer comme utilisé</button>
+        <button type="submit" name="action" value="up" class="btn btn-success">Marquer comme utilisable</button>
+    </form>
+</div>
+{% endblock %}
