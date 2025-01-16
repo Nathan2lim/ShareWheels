@@ -8,13 +8,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.decorators.http import require_http_methods
+from django.db.models import Q
 
 from app.models import *
 from .forms import *
@@ -64,6 +65,11 @@ def login(request):
     return render(request, 'applicompte/login.html')
 
 def logout(request): 
+    
+    if not request.user.is_authenticated:
+        messages.info(request, "Vous n'êtes pas connecté.")
+        return redirect('app:home')
+    
     django_logout(request)
     messages.success(request, "Déconnexion réussie.")
     return render(
@@ -104,6 +110,11 @@ def forgetpassword(request):
 
 
 def reset_password(request, uidb64, token):
+    
+    if request.user.is_authenticated:
+        messages.info(request, "Vous êtes déjà connecté. Déconnectez-vous pour utiliser cette fonctionnalité.")
+        return redirect('applicompte:editpassword')
+    
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -130,6 +141,7 @@ def reset_password(request, uidb64, token):
 
 def register(request):
     if request.user.is_authenticated:
+        messages.info(request, "Vous êtes déjà connecté.")
         return redirect('app:home')
     if request.method == 'POST':
         form = UserCreationSW(request.POST)
@@ -143,6 +155,13 @@ def register(request):
             user.username = str(uuid.uuid4())[:30]  # Génère un nom d'utilisateur unique
             user.is_active = False  # Désactiver le compte jusqu'à la validation de l'email
             user.save()
+            
+            user_profile = UserProfile.objects.create(
+                user=user,
+                imatriculation="",  # Valeur par défaut ou générez-la si nécessaire
+                type_user=0  # Par défaut à "Standard"
+            )
+            user_profile.save()
             
             # Génération du lien de validation
             current_site = get_current_site(request)
@@ -245,3 +264,98 @@ def edit_profile(request):
         return render(request, 'applicompte/edit_profile.html', {'form': form})
     else:
         return redirect('login')
+    
+def manage_users(request):
+    # Logique de filtrage des utilisateurs
+    if request.user.is_superuser:
+        # Superuser voit tous les utilisateurs sauf lui-même
+        users = User.objects.all().exclude(id=request.user.id)
+    elif request.user.is_staff:
+        # Staff voit uniquement les utilisateurs non-superuser sauf lui-même
+        users = User.objects.exclude(id=request.user.id).exclude(is_superuser=True)
+    else:
+        if not request.user.is_authenticated:
+            messages.error(request, "Vous devez être connecté pour accéder à cette page.")
+            return redirect('applicompte:login')
+        else:
+            # Les utilisateurs normaux ne devraient pas avoir accès à cette vue
+            messages.error(request, "Vous n'avez pas les droits pour accéder à cette page.")
+            return redirect('app:home')  # Redirigez vers une page appropriée
+
+        
+    return render(request, 'applicompte/manage_users.html', {'users': users})
+
+def manage_user_staff_status(request, user_id):
+    # Récupérer l'utilisateur cible
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'promote':
+            # Mettre à jour l'attribut is_staff à True
+            user.is_staff = True
+            user.save()
+            messages.success(request, f"L'utilisateur {user.username} a été promu au rôle de staff.")
+        elif action == 'demote':
+            # Mettre à jour l'attribut is_staff à False
+            user.is_staff = False
+            user.save()
+            messages.success(request, f"L'utilisateur {user.username} a été retiré du rôle de staff.")
+        else:
+            messages.error(request, "Action non reconnue.")
+    
+    # Rediriger vers la liste des utilisateurs
+    return redirect('applicompte:manage_users')
+
+def add_photos(request, username):
+    
+    if request.user.username != username:
+        messages.error(request, "Vous n'êtes pas autorisé à accéder à cette page.")
+        return redirect(reverse('applicompte:user_profile', kwargs={'username': username}))
+    
+    if request.method == 'POST':
+        form = PhotoUserForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.user = request.user  # Associer la photo à l'utilisateur connecté
+            photo.save()
+            messages.success(request, "Photo ajoutée avec succès.")
+            user = request.user
+            return redirect(reverse('applicompte:user_profile', kwargs={'username': user.username}))
+    else:
+        form = PhotoUserForm()
+
+    return render(request, 'applicompte/add_photos.html', {'form': form})
+
+def user_profile(request, username):
+    profile_user = get_object_or_404(User, username=username)  # Utiliser un nom explicite
+    photos = PhotoUser.objects.filter(user=profile_user)
+    return render(request, 'applicompte/user_profile.html', {
+        'profile_user': profile_user,  # Passer avec un nom explicite
+        'photos': photos
+    })
+    
+def search_users(request):
+    query = request.GET.get('q', '').strip()
+    all_results = request.GET.get('full', 'false') == 'true'
+
+    if query:
+        users = User.objects.filter(
+            Q(username__icontains=query) | Q(email__icontains=query) | Q(userprofile__alias__icontains=query)
+        )
+        if not all_results:
+            users = users[:3]
+
+        user_data = [
+            {
+                'username': u.username,
+                'email': u.email,
+                'alias': u.userprofile.alias,
+                'profile_url': reverse('applicompte:user_profile', kwargs={'username': u.username})
+            } for u in users
+        ]
+        return JsonResponse({'results': user_data})
+
+    return JsonResponse({'results': []})
+def search_users_page(request):
+    return render(request, 'applicompte/search_users.html')

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile  # Import du modèle UserProfile
+from .models import UserProfile,PhotoUser  # Import du modèle UserProfile
 from django.core.validators import RegexValidator
 
 class UserCreationSW(UserCreationForm):
@@ -43,3 +43,8 @@ class AdminUserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+class PhotoUserForm(forms.ModelForm):
+    class Meta:
+        model = PhotoUser
+        fields = ['title', 'image', 'localisation', 'description']

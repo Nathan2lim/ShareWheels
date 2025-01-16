@@ -27,10 +27,18 @@ def home(request):
     return render(request, 'app/home.html')
 
 def reservation(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
     lesTickets = TypeTicket.objects.all()
     return render(request, 'app/reservation.html', {'tickets': lesTickets})
 
 def create_payment(request, ticket_type_id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
     # Récupère le type de ticket à payer
     ticket_type = get_object_or_404(TypeTicket, id=ticket_type_id)
 
@@ -60,6 +68,10 @@ def create_payment(request, ticket_type_id):
 
 
 def success(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
     # Récupère l'utilisateur connecté et le type de ticket
     user = request.user
     ticket_type_id = request.GET.get('ticket_type_id')
@@ -86,6 +98,10 @@ def success(request):
     return render(request, 'app/success.html', {'tickets': tickets})
 
 def cancel(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
     return render(request, 'app/cancel.html')
 
 def gallery(request):
@@ -93,6 +109,13 @@ def gallery(request):
     return render(request, 'app/gallery.html', {'photos': photos})
 
 def add_photo(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    if not request.user.is_staff:
+        messages.warning(request, "Vous devez être un utilisateur premium pour ajouter une photo.")
+        return redirect('app:gallery')
+    
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -105,6 +128,13 @@ def add_photo(request):
     return render(request, 'app/add_photo.html', {'form': form})
 
 def add_ticket(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    if not request.user.is_staff:
+        messages.warning(request, "Vous devez être un utilisateur premium pour ajouter un ticket.")
+        return redirect('app:ticket_list')
+    
     if request.method == 'POST':
         form = TicketForm(request.POST)
         if form.is_valid():
@@ -123,10 +153,27 @@ def add_ticket(request):
 
 
 def ticket_list(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
+    if not request.user.is_staff:
+        messages.warning(request, "Vous devez être un utilisateur premium pour voir les tickets.")
+        return redirect('app:home')
+    
     tickets = Ticket.objects.all()  # Affiche uniquement les tickets de l'utilisateur connecté
     return render(request, 'app/myticket.html', {'tickets': tickets})
 
 def add_type_ticket(request):
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
+    if not request.user.is_staff:
+        messages.warning(request, "Vous devez être un utilisateur premium pour ajouter un type de ticket.")
+        return redirect('app:list_type_ticket')
+    
     if request.method == 'POST':
         form = TypeTicketForm(request.POST, request.FILES)
         if form.is_valid():
@@ -138,11 +185,25 @@ def add_type_ticket(request):
     return render(request, 'app/add_type_ticket.html', {'form': form})
 
 def list_type_ticket(request):
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
+        return redirect('applicompte:login')
+    
+    if not request.user.is_staff:
+        messages.warning(request, "Vous devez être un utilisateur premium pour voir les types de tickets.")
+        return redirect('app:home')
+    
     types = TypeTicket.objects.all()  # Récupère tous les types de tickets
     return render(request, 'app/list_type_ticket.html', {'types': types})
 
 
 def mytickets(request):
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour voir vos tickets.")
+        return redirect('applicompte:login')
+    
     # Récupère tous les types de tickets (utile pour les afficher ou les filtrer)
     types = TypeTicket.objects.all()
     
@@ -152,6 +213,14 @@ def mytickets(request):
     return render(request, 'app/myticket.html', {'types': types, 'tickets': tickets})
 
 def ticket_detail(request, ticket_id):
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour voir vos tickets.")
+        return redirect('applicompte:login')
+    
+    if not request.user.id == Ticket.objects.get(id=ticket_id).user_id:
+        messages.warning(request, "Vous ne pouvez pas voir les tickets des autres utilisateurs.")
+        return redirect('app:mytickets') 
     ticket = get_object_or_404(Ticket, id=ticket_id)
     
     # Générer le QR code dynamiquement
@@ -173,9 +242,15 @@ def ticket_detail(request, ticket_id):
     return render(request, 'app/ticket_detail.html', {'ticket': ticket, 'qr_code_base64': qr_code_base64})
 
 def ticket_status_update(request, ticket_id):
-    """
-    Vue permettant de modifier le statut d'un ticket.
-    """
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "Vous devez vous connecter pour voir vos tickets.")
+        return redirect('applicompte:login')
+    
+    if not request.user.userprofile.type_user == 1 or not request.user.is_staff:
+        messages.warning(request, "Vous devez être un utilisateur premium pour mettre à jour le statut d'un ticket.")
+        return redirect('app:mytickets')
+    
     ticket = get_object_or_404(Ticket, id=ticket_id)
 
     if request.method == 'POST':

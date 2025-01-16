@@ -11,6 +11,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:home' %}">Accueil</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'applicompte:search_users_page' %}">Recherche</a>
+                </li>
+                {% if user.is_authenticated and user.is_staff %}
 
                 <!-- Galerie -->
                 <li class="nav-item dropdown">
@@ -22,8 +26,15 @@
                         <li><a class="dropdown-item" href="{% url 'app:add_photo' %}">Ajouter une Photo</a></li>
                     </ul>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:gallery' %}">Galerie {{user.userprofile.type_user}}</a>
+                </li>
+                {% endif %}
+
 
                 <!-- Tickets -->
+                {% if user.is_authenticated and user.is_staff  %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="ticketDropdown" role="button">
                         Tickets
@@ -36,11 +47,25 @@
                         <li><a class="dropdown-item" href="{% url 'app:list_type_ticket' %}">Liste des Types de Tickets</a></li>
                     </ul>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:mytickets' %}">Tickets</a>
+                </li>
+
+                {% endif %}
+                
+
 
                 <!-- Réservation -->
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'app:reservation' %}">Réservation</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'applicompte:manage_users' %}">Admin</a>
                 </li>
                 {% endif %}
 
@@ -51,8 +76,9 @@
                         Mon Compte
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <li><a class="dropdown-item" href="{% url 'applicompte:profile' %}">Profil</a></li>
-                        <li><a class="dropdown-item" href="{% url 'applicompte:edit_profile' %}">Modifier le Profil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'applicompte:user_profile' request.user.username %}">Mon profil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'applicompte:profile' %}">Mon Compte</a></li>
+                        <li><a class="dropdown-item" href="{% url 'applicompte:edit_profile' %}">Modifier le compte</a></li>
                         <li><a class="dropdown-item" href="{% url 'applicompte:logout' %}">Déconnexion</a></li>
                     </ul>
                 </li>
