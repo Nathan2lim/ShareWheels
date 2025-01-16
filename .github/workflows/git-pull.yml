@@ -1,0 +1,19 @@
+name: Auto Pull on Push
+
+on:
+  push:
+    branches:
+      - main  # ou la branche que tu surveilles pour les commits
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Run git pull
+        run: |
+          git fetch origin
+          git pull origin main  # ou ta branche spécifique
