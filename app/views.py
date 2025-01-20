@@ -58,8 +58,8 @@ def create_payment(request, ticket_type_id):
             },
         ],
         mode='payment',
-        success_url=f'http://127.0.0.1:8000/success/?ticket_type_id={ticket_type.id}',
-        cancel_url='http://127.0.0.1:8000/cancel/',
+        success_url = f"{reverse('success')}?ticket_type_id={ticket_type.id}",
+        cancel_url=f"{reverse('gallery')},
     )
 
     # Redirige vers Stripe Checkout
