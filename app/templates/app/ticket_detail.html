@@ -1,9 +1,8 @@
 {% extends "app/base.html" %}
-{% block title %}Accueil - Festival Automobile{% endblock %}
+{% block title %}Détail du ticket n°{{ ticket.id }}{% endblock %}
 {%load static%}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/general.css' %}">
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ticket_detail.css' %}">
 {% endblock %}
 
 {% block main %}
@@ -19,14 +18,18 @@
         {% if ticket.status == "0" %}
             Utilisable
         {% else %}
-            non utilisable
+            Non utilisable
         {% endif %}
     </p> 
-
-    <p>Ajouter à <a href="https://api.skyhosting.fr/sherwheels?qrcode={{ ticket.qr_code }}&firstname={{ ticket.name }}&lastname={{ ticket.prenom }}&immatriculation={{ ticket.user.userprofile.imatriculation }}" target="_blank">
-     Apple Walet    </a>
-    </p>
-       
+    {% if device_type == 'ios' %}
+        <a href="https://api.skyhosting.fr/sherwheels?qrcode={{ ticket.qr_code }}&firstname={{ ticket.name }}&lastname={{ ticket.prenom }}&immatriculation={{ ticket.user.userprofile.imatriculation }}" target="_blank">
+            <img src="{% static 'svg/ios/FR/RGB/FR_Add_to_Apple_Wallet_RGB_102921.svg' %}" alt="Événements">
+        </a>
+    {% elif device_type == 'android' %}
+        <a href="https://api.skyhosting.fr/sherwheels?qrcode={{ ticket.qr_code }}&firstname={{ ticket.name }}&lastname={{ ticket.prenom }}&immatriculation={{ ticket.user.userprofile.imatriculation }}" target="_blank">
+            <img src="{% static 'svg/android/fr/Save to Google Pay - French (Dark).svg' %}" alt="Événements">
+        </a>
+    {% endif %}
     <p><strong>Lien QR Code :</strong> {{ ticket.qr_code }}</p>
     
     <!-- Affiche le QR Code -->

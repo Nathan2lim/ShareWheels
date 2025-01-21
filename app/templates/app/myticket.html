@@ -1,9 +1,8 @@
-{% extends "app/base.html" %} {% block title %} Rerservation {% endblock %}
+{% extends "app/base.html" %} {% block title %} Mes tickets {% endblock %}
 {% block main %}
 {%load static%}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/general.css' %}">
-<link rel="stylesheet" href="{% static 'css/reservation.css' %}">
+<link rel="stylesheet" href="{% static 'css/app-mytickets.css' %}">
 
 {% endblock %}
     <div class="container mt-5">        
@@ -16,8 +15,8 @@
                     <th>Date de Création</th>
                     <th>Type de Ticket</th>
                     <th>Statut</th>
-                    <th>Prenom</th>
-                    <th>Nom</th>
+                    <th>Detail</th>
+
 
 
                 </tr>
@@ -29,8 +28,7 @@
                     <td>{{ ticket.date_creation|date:"d/m/Y H:i" }}</td>
                     <td>{{ ticket.type_ticket.nom_type }}</td>
                     <td>{{ ticket.status }}</td>
-                    <td>{{ ticket.prenom }}</td>
-                    <td>{{ ticket.name }}</td>
+                    
                     <td> <a href="{% url 'app:ticket_detail' ticket_id=ticket.id %}">Détail</a></td>
 
 

@@ -1,5 +1,5 @@
 {% extends "app/base.html" %}
-{% block title %}Accueil - Festival Automobile{% endblock %}
+{% block title %}SherWheels Festival{% endblock %}
 {%load static%}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/general.css' %}">
@@ -7,44 +7,55 @@
 {% endblock %}
 
 {% block main %}
-<div class="homepage-header">
-    <h1>Bienvenue au Festival Automobile</h1>
-    <p>Un voyage inoubliable dans le monde des voitures de luxe et des sports automobiles.</p>
-</div>
-
-<div class="homepage-sections">
-    <div class="section">
-        <img src="{% static 'app/images/events.jpg' %}" alt="Événements">
-        <h2>Événements</h2>
-        <p>Découvrez les événements passionnants, y compris des démonstrations en direct, des courses, et bien plus.</p>
-        <a href="{% url 'app:home' %}" class="btn">Explorer</a>
-    </div>
-
-    <div class="section">
-        <img src="{% static 'app/images/tickets.jpg' %}" alt="Réservation de billets">
-        <h2>Réservation</h2>
-        <p>Réservez vos billets pour vivre l'action de près.</p>
-        <a href="{% url 'app:reservation' %}" class="btn">Réserver</a>
-    </div>
-    <div class="section">
-        <img src="{% static 'app/images/tickets.jpg' %}" alt="Réservation de billets">
-        <h2>Réservation</h2>
-        <p>Réservez vos billets pour vivre l'action de loin</p>
-        <a href="{% url 'app:reservation' %}" class="btn">Réserver</a>
-    </div>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
     
-    <div class="section">
-        <img src="{% static 'app/images/gallery.jpg' %}" alt="Galerie">
-        <h2>Galerie</h2>
-        <p>Admirez les images exclusives des véhicules et des événements passés.</p>
-        <a href="{% url 'app:home' %}" class="btn">Voir la galerie</a>
+    #homepage {
+        background-image: url("{% static 'images/home/background.jpg' %}");
+        background-size: cover;
+        background-position: center;
+
+        width: 100%;
+        min-height: 100vh;
+    }
+</style>
+<div id="homepage">
+    <div class="homepage-header">
+        <h1>Bienvenue au Festival Automobile</h1>
+        <p>Un voyage inoubliable dans le monde des voitures de luxe et des sports automobiles.</p>
     </div>
 
-    <div class="section">
-        <img src="{% static 'app/images/contact.jpg' %}" alt="Contact">
-        <h2>Contact</h2>
-        <p>Nous sommes là pour répondre à toutes vos questions. Contactez-nous dès maintenant.</p>
-        <a href="{% url 'app:home' %}" class="btn">Contactez-nous</a>
+    <div class="homepage-sections">
+        <div class="section">
+            <img src="{% static 'images/home/events.jpg' %}" alt="Événements">
+            <h2>Événements</h2>
+            <p>Découvrez les événements passionnants, y compris des démonstrations en direct, des courses, et bien plus.</p>
+            <a href="{% url 'app:home' %}" class="btn btn-primary">Explorer</a>
+        </div>
+
+        <div class="section">
+            <img src="{% static 'images/home/tickets.jpg' %}" alt="Réservation de billets">
+            <h2>Réservation</h2>
+            <p>Réservez vos billets pour vivre l'action de près.</p>
+            <a href="{% url 'app:reservation' %}" class="btn btn-primary">Réserver</a>
+        </div>
+        
+        <div class="section">
+            <img src="{% static 'images/home/gallery.jpg' %}" alt="Galerie">
+            <h2>Galerie</h2>
+            <p>Admirez les images exclusives des véhicules et des événements passés.</p>
+            <a href="{% url 'app:home' %}" class="btn btn-primary">Voir la galerie</a>
+        </div>
+
+        <div class="section">
+            <img src="{% static 'images/home/contact.jpg' %}" alt="Contact">
+            <h2>Contact</h2>
+            <p>Nous sommes là pour répondre à toutes vos questions. Contactez-nous dès maintenant.</p>
+            <a href="{% url 'app:home' %}" class="btn btn-primary">Contactez-nous</a>
+        </div>
     </div>
 </div>
 {% endblock %}

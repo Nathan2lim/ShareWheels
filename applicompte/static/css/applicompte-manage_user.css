@@ -66,6 +66,41 @@ form {
     display: inline-block;
 }
 
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .main-container h1 {
+    text-align: center;
+  }
+  
+  .main-container table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Enveloppe tout le contenu principal dans un max-width, 
+   puis centre-le avec margin auto */
+main {
+    max-width: 1500px;       /* Ajuste selon tes préférences */
+    margin: 0 auto;         /* Centre horizontalement */
+  }
+  
+  /* Centre aussi le titre et le tableau si tu le souhaites */
+  main h1 {
+    text-align: center;
+  }
+  
+  /* Centre le tableau si nécessaire 
+     (sinon, le max-width de <main> suffit) */
+  main table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+
+  
 @media (max-width: 768px) {
     table {
         font-size: 0.9rem;

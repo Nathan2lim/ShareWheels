@@ -1,8 +1,12 @@
-.nav-item.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; /* Annule le décalage vertical */
-}
+
 .dropdown-menu {
     margin-top: 0; /* Corrige l'animation de Bootstrap */
     transition: all 0.3s ease; /* Animation pour un effet fluide */
 }
+
+@media (min-width: 992px) {
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  }
+  

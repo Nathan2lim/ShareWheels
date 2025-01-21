@@ -3,11 +3,14 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="{% static 'images/sherwheels.ico' %}"/>
+
    <!-- <meta name="viewport" content="width=device.width, initial-scale=1" />-->
     <title>{% block title %} {% endblock %}</title>
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
     {% block extra_js %}{% endblock %}
     <script src="{% static 'js/base.js' %}"></script>

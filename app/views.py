@@ -58,8 +58,9 @@ def create_payment(request, ticket_type_id):
             },
         ],
         mode='payment',
-        success_url=f'http://127.0.0.1:8000/success/?ticket_type_id={ticket_type.id}',
-        cancel_url='http://127.0.0.1:8000/cancel/',
+        success_url = f"{reversed('success')}?ticket_type_id={ticket_type.id}",
+        cancel_url = f"{reversed('gallery')}"
+
     )
 
     # Redirige vers Stripe Checkout
@@ -141,7 +142,7 @@ def add_ticket(request):
             ticket = form.save(commit=False)
             ticket.user = request.user  # Associe le ticket à l'utilisateur connecté            
             # Génère un lien unique pour le QR code
-            ticket.qr_code = f"https://https://sherwheels.fr/ticket/{ticket.id}/update"  # Remplacez `example.com` par votre domaine
+            ticket.qr_code = f"https://sherwheels.fr/ticket/{ticket.id}/update"  # Remplacez `example.com` par votre domaine
             
             ticket.save()
             messages.success(request, "Votre ticket a été ajouté avec succès.")
@@ -238,8 +239,16 @@ def ticket_detail(request, ticket_id):
     buffer = BytesIO()
     img.save(buffer, format="PNG")
     qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+    user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
+    if 'iphone' in user_agent or 'ipad' in user_agent or 'ipod' in user_agent:
+        device_type = 'ios'
+    elif 'android' in user_agent:
+        device_type = 'android'
+    else:
+        device_type = 'other'
     
-    return render(request, 'app/ticket_detail.html', {'ticket': ticket, 'qr_code_base64': qr_code_base64})
+    return render(request, 'app/ticket_detail.html', {'ticket': ticket, 'qr_code_base64': qr_code_base64, 'device_type': device_type})
 
 def ticket_status_update(request, ticket_id):
     

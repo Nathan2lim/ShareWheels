@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
@@ -170,12 +171,19 @@ def register(request):
             token = default_token_generator.make_token(user)
             activation_link = f"{request.scheme}://{current_site.domain}{reverse('applicompte:activate', kwargs={'uidb64': uid, 'token': token})}"
             
-            message = render_to_string('applicompte/activation_email.html', {
+            html_message = render_to_string('applicompte/activation_email.html', {
                 'user': user,
                 'activation_link': activation_link,
             })
-            to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL, [to_email])
+            
+            email_message = EmailMessage(
+                subject=mail_subject,
+                body=html_message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[form.cleaned_data.get('email')]
+            )
+            email_message.content_subtype = "html"
+            email_message.send()
             
             messages.success(request, "Un email de validation vous a été envoyé. Veuillez vérifier votre boîte de réception.")
             return redirect('app:home')
