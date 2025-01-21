@@ -1,19 +1,30 @@
-{% extends "app/base.html" %} {% block title %} Succes {% endblock %}
-{% block main %}
+{% extends "app/base.html" %}
+{% load static %}
 
-<h1> Votre réservation a été effectuée avec succès ! </h1>
-<p> Vous pouvez consulter les détails de votre réservation dans votre espace personnel. </p>
-<p> Voici la liste des réservations effectuées : <p/>
+{% block title %} Achat bien effectué {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/app-success.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="container success-container">
+  <h1>Votre réservation a été effectuée avec succès&nbsp;!</h1>
+  <p>Vous pouvez consulter les détails de votre réservation dans votre espace personnel.</p>
+  <p>Voici la liste des réservations effectuées :</p>
+
+  <div class="ticket-list">
     {% for ticket in tickets %}
     <div class="ticket">
-        <img src="{{ ticket.image }}" alt="{{ ticket.title }}">
-        <div class="ticket-content">
-            <h2 class="ticket-title">{{ ticket.title }}</h2>
-            <p class="ticket-description">{{ ticket.description }}</p>
-            <p class="ticket-price">{{ ticket.price }} €</p>
-        </div>
+      <!-- Image du ticket -->
+      <img src="{{ ticket.image }}" alt="{{ ticket.title }}">
+      <div class="ticket-content">
+        <h2 class="ticket-title">{{ ticket.title }}</h2>
+        <p class="ticket-description">{{ ticket.description }}</p>
+        <p class="ticket-price">{{ ticket.price }}&nbsp;€</p>
+      </div>
     </div>
     {% endfor %}
-
-
+  </div>
+</div>
 {% endblock %}

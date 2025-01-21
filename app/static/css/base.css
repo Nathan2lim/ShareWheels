@@ -1,58 +1,346 @@
-body
-{
-    padding-top: 56px; /* Hauteur du header fixe (56px pour le menu Bootstrap) */
-}
-
-/* Style général pour les messages */
-.messages-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
-    width: 80%;
-    max-width: 500px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.messages-container ul {
-    list-style-type: none;
+/* =========================
+   VARIABLES DE COULEURS
+   ========================= */
+   :root {
+    /* Palette principale, plus discrète */
+    --color-rouge-orange: #d35400; /* Rouge/Orange sobre */
+    --color-rouge-orange-dark: #c0392b; /* Variante plus foncée pour hover */
+    --color-jaune: #f1c40f;            /* Jaune un peu plus doux */
+    --color-bleu: #2980b9;             /* Bleu plus sobre */
+    --color-blanc: #ffffff;
+  
+    /* Couleurs de fond et de texte */
+    --color-bg: #f8f9fa;  /* Gris clair proche du blanc */
+    --color-text: #2c3e50; /* Gris foncé pour un meilleur confort de lecture */
+  }
+  
+  /* =========================
+     RESET ET BASE GENERALE
+     ========================= */
+  html, body {
     margin: 0;
     padding: 0;
-}
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    height: 100%; /* Assure que le conteneur couvre toute la hauteur */
 
-.messages-container li {
-    margin-bottom: 10px;
-    padding: 10px;
+  }
+  
+  /* =========================
+     LIENS
+     ========================= */
+  a {
+    color: var(--color-bleu);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-rouge-orange-dark);
+    text-decoration: underline;
+  }
+  
+  /* =========================
+     NAVBAR (HEADER)
+     ========================= */
+  .navbar-dark.bg-dark {
+    /* Couleur de fond plus foncée, mais avec un léger rappel de ton orange. */
+    background-color: var(--color-rouge-orange) !important;
+    border-bottom: 3px solid var(--color-jaune);
+  }
+  
+  /* Brand */
+  .navbar-brand {
+    color: var(--color-blanc) !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  
+  /* Liens de la navbar */
+  .navbar-dark .navbar-nav .nav-link {
+    color: var(--color-blanc) !important;
+    font-weight: 400;
+  }
+  .navbar-dark .navbar-nav .nav-link:hover,
+  .navbar-dark .navbar-nav .nav-link:focus {
+    color: var(--color-jaune) !important;
+    background-color: transparent;
+  }
+  
+  /* Dropdown */
+  .navbar-dark .navbar-nav .dropdown-menu {
+    background-color: var(--color-rouge-orange);
+    border: 1px solid var(--color-bleu);
+  }
+  .navbar-dark .navbar-nav .dropdown-item {
+    color: var(--color-blanc);
+  }
+  .navbar-dark .navbar-nav .dropdown-item:hover {
+    background-color: var(--color-rouge-orange-dark);
+    color: var(--color-blanc);
+  }
+  
+
+  
+  /* =========================
+     MESSAGES (Django messages)
+     ========================= */
+  .messages-container {
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 0.5rem;
+  }
+  .messages-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .messages-container li {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
     border-radius: 4px;
-    font-size: 14px;
-    font-weight: bold;
-}
+    color: var(--color-blanc);
+    background-color: var(--color-bleu);
+  }
+  .messages-container li.success {
+    background-color: var(--color-jaune);
+    color: var(--color-text);
+  }
+  .messages-container li.error {
+    background-color: var(--color-rouge-orange-dark);
+    color: var(--color-blanc);
+  }
+  
+  /* =========================
+     MAIN (CONTENU)
+     ========================= */
+  main {
+    padding: 5rem 1rem 2rem; /* Pour laisser de la place en haut pour la navbar */
+  }
+  main h1, main h2, main h3, main h4, main h5, main h6 {
+    color: var(--color-rouge-orange-dark);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  main p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  /* =========================
+     BOUTONS
+     ========================= */
+  /* Bouton principal (ex: .btn-primary) */
+  .btn-primary {
+    background-color: var(--color-bleu);
+    border-color: var(--color-bleu);
+    color: var(--color-blanc);
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: var(--color-rouge-orange-dark);
+    border-color: var(--color-rouge-orange-dark);
+  }
+  
+  /* Bouton secondaire (ex: .btn-secondary) */
+  .btn-secondary {
+    background-color: var(--color-jaune);
+    border-color: var(--color-jaune);
+    color: var(--color-text);
+  }
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background-color: var(--color-rouge-orange);
+    border-color: var(--color-rouge-orange);
+    color: var(--color-blanc);
+  }
+  
+  /* =========================
+     MEDIAS QUERIES (si besoin)
+     ========================= */
+  @media screen and (max-width: 768px) {
+    main {
+      padding-top: 4rem;
+    }
+    .navbar-brand {
+      font-size: 1rem;
+    }
+  }
+  
 
-/* Styles par type de message */
-.messages-container li.info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-}
-
-.messages-container li.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.messages-container li.warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-}
-
-.messages-container li.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
+  /* =========================
+   RESPONSIVE POUR iPHONE 13
+   ========================= */
+@media screen and (max-width: 430px) {
+    /* =========================
+       GLOBALEMENT
+       ========================= */
+    body {
+      font-size: 0.9rem;   /* Réduit légèrement la taille de police */
+      padding: 0;          /* Supprime des marges globales si nécessaire */
+      margin: 0;           /* Idem */
+    }
+  
+    h1, h2, h3 {
+      /* Réduit un peu la taille des titres pour tenir sur l'écran */
+      font-size: 1.3rem;
+      text-align: center;
+    }
+  
+    p {
+      /* Moins de marge pour éviter les retours à la ligne trop tôt */
+      margin-bottom: 0.75rem;
+    }
+  
+    /* =========================
+       NAVBAR ET MENU
+       ========================= */
+    .navbar-brand {
+      font-size: 1rem !important;  /* Logo / titre plus petit */
+      padding: 0 !important;
+    }
+  
+    .navbar-nav .nav-link {
+      font-size: 0.9rem !important;
+      padding: 0.4rem 0.7rem !important; 
+    }
+  
+    .navbar-toggler {
+      /* S’assurer que le burger-menu est accessible sur petit écran */
+      padding: 0.25rem 0.5rem;
+    }
+  
+    /* =========================
+       CONTAINERS ET BLOCS GÉNÉRAUX
+       ========================= */
+    /* Sur plusieurs pages, tu utilises .container.mt-5, .profile-container, .div-logout, etc. 
+       On harmonise leurs marges et largeurs. */
+    .container.mt-5,
+    .profile-container,
+    .div-logout,
+    .search-container,
+    .success-container,
+    .main-container /* si tu en utilises un pour centrer le contenu */ {
+      margin-top: 4rem !important; /* Laisse un peu de place sous la navbar */
+      margin-left: auto;
+      margin-right: auto;
+      width: 95%;          /* Occupe la quasi-totalité de l’écran */
+      padding: 1rem;       /* Réduit le padding interne */
+      box-shadow: none;    /* Optionnel : retire ou réduit l’ombre si tu veux */
+    }
+  
+    /* =========================
+       TABLES
+       ========================= */
+    /* Les tableaux risquent de déborder sur mobile, 
+       on autorise le scroll horizontal. */
+    table,
+    .table {
+      display: block;          /* Forcer un bloc */
+      width: 100%;
+      overflow-x: auto;        /* Scroll horizontal si nécessaire */
+      font-size: 0.9rem;       /* Texte plus petit */
+    }
+    th, td {
+      white-space: nowrap;     /* Évite la casse du texte sur plusieurs lignes */
+      padding: 0.5rem 0.75rem; /* Réduit l'espacement */
+    }
+  
+    /* =========================
+       FORMULAIRES ET CHAMPS
+       ========================= */
+    form {
+      margin-top: 3rem;        /* Ajuste la marge top selon tes préférences */
+      padding: 1rem;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form p {
+      margin-bottom: 1rem;
+    }
+    label {
+      font-size: 0.9rem;
+    }
+    input, select, textarea, button {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.6rem;
+    }
+  
+    /* =========================
+       BOUTONS
+       ========================= */
+    .btn,
+    button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+      border-radius: 4px;
+    }
+    /* Si tes .btn-success, .btn-primary, etc. 
+       ont des marges, on peut les réduire un peu aussi */
+    .btn-success,
+    .btn-primary,
+    .btn-danger,
+    .btn-secondary {
+      margin-bottom: 0.75rem;
+    }
+  
+    /* =========================
+       CARTES (Bootstrap cards, tickets, etc.)
+       ========================= */
+    .card {
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: none; /* Ou garde un shadow léger si tu préfères */
+    }
+    .card-header,
+    .card-body {
+      padding: 0.75rem;
+    }
+    .card-title {
+      font-size: 1.1rem;
+    }
+    .card-text {
+      font-size: 0.9rem;
+    }
+  
+    /* =========================
+       IMAGES ET GRILLES DE PHOTOS
+       ========================= */
+    /* Ex. .card-img-top, .photos-section img, etc. */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    /* Si tu as des grilles responsives (.ticket-list, .photos-section ul) 
+       on force une seule colonne pour un affichage vertical */
+    .ticket-list,
+    .photos-section ul {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+  
+    /* =========================
+       SPÉCIFIQUE À CERTAINES PAGES
+       ========================= */
+    /* .search-container, .messages-container, etc. */
+    .search-container h1 {
+      font-size: 1.3rem;
+    }
+    .messages-container li {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.6rem;
+    }
+    /* etc. Si tu as d’autres blocs spécifiques, 
+       tu peux adapter margin, padding et font-size. */
+  
+    /* =========================
+       FOOTER
+       ========================= */
+    footer.custom-footer {
+      padding: 0.75rem 0;
+      font-size: 0.9rem;
+    }
+  }
+  

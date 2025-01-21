@@ -1,90 +1,101 @@
-/* Styles pour la page de profil utilisateur */
-.profile-container {
+/* =========================
+   CONTENEUR PRINCIPAL
+   ========================= */
+   .profile-container {
     max-width: 800px;
-    margin: 20px auto;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.profile-container h1 {
-    font-size: 24px;
-    color: #007BFF;
-    margin-bottom: 20px;
+    margin: 5rem auto 2rem auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 6px;
+    /* Légère ombre pour un aspect professionnel */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titre du profil (alias) */
+  .profile-container h1 {
     text-align: center;
-}
-
-.profile-container p {
-    font-size: 16px;
-    margin: 5px 0;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    color: var(--color-rouge-orange-dark, #c0392b);
+  }
+  
+  /* Infos de base (Email, Type, Immatriculation) */
+  .profile-container p {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
     color: #333;
-}
-
-/* Styles pour la section des photos */
-.photos-section {
-    margin-top: 20px;
-}
-
-.photos-section h2 {
-    font-size: 20px;
-    color: #555;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-}
-
-.photos-section ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.photos-section li {
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    width: calc(33.333% - 20px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.photos-section li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.photos-section img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.photos-section p {
-    font-size: 14px;
-    color: #555;
-    margin: 5px 0;
-}
-
-/* Lien pour ajouter des photos */
-.add-photo-link {
+  }
+  
+  /* Liens d'édition du profil et d'ajout de photos */
+  .edit-profile-link,
+  .add-photo-link {
     display: inline-block;
-    margin-top: 20px;
-    background-color: #007BFF;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 4px;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
     text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.add-photo-link:hover {
-    background-color: #0056b3;
-}
+    border-radius: 4px;
+    font-weight: 500;
+    color: #fff;
+    background-color: var(--color-bleu, #2980b9);
+    transition: background-color 0.2s;
+  }
+  
+  .edit-profile-link:hover,
+  .add-photo-link:hover {
+    background-color: var(--color-rouge-orange-dark, #c0392b);
+  }
+  
+  /* =========================
+     SECTION PHOTOS
+     ========================= */
+  .photos-section {
+    margin-top: 2rem;
+  }
+  
+  .photos-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--color-bleu, #2980b9);
+  }
+  
+  /* Liste des photos */
+  .photos-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid; /* Grille responsive */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Chaque photo */
+  .photos-section li {
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    transition: box-shadow 0.2s;
+  }
+  
+  .photos-section li:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Image */
+  .photos-section img {
+    max-width: 100%;
+    height: 140px; /* Ajuste selon tes préférences */
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Titre et description d’une photo */
+  .photos-section p {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
