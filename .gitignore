@@ -7,3 +7,74 @@ fichierstatic/
 staticfiles/
 
 *.db
+
+datas/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment
+venv/
+.env
+*.venv
+
+# Django secret key file
+.env
+*.env
+config/settings/local.py
+config/settings/.local/
+
+# Database
+*.sqlite3
+*.db
+
+# Migrations (optional)
+**/migrations/*.pyc
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Static and media files
+/static/
+/media/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Logs and temp files
+*.log
+logs/
+*.pid
+*.swp
+*.swo
+*.swn
+
+# Compiled files
+*.mo
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
