@@ -9,6 +9,9 @@ git pull
 echo "2. Nettoyage du dossier 'staticfiles'..."
 rm -rf /srv/ShareWheels/staticfiles
 
+echo "3. Nettoyage du dossier 'images'..."
+rm -rf /srv/ShareWheels/images
+
 # Fonction pour remplacer les espaces dans les noms de fichiers d'un dossier
 replace_spaces() {
     echo "Recherche de fichiers avec des espaces dans $1..."
