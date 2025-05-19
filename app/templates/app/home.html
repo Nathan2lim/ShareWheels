@@ -1,61 +1,165 @@
-{% extends "app/base.html" %}
-{% block title %}SherWheels Festival{% endblock %}
-{%load static%}
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/general.css' %}">
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
-{% endblock %}
+/* ----------  VARIABLES  ---------- */
+:root{
+    --navy:#192448;
+    --navy-dark:#0f172f;
+    --gold:#d5c9a5;
+    --white:#ffffff;
+    --grey:#f7f7f7;
+    --max-width:1200px;
+    --gutter:1.25rem;
+    --radius:8px;
+    --transition:all .3s ease;
+    font-size:16px;
+}
 
-{% block main %}
-<style>
-    html, body {
-        margin: 0;
-        padding: 0;
-    }
-    
-    #homepage {
-        background-image: url("{% static 'images/home/background.jpg' %}");
-        background-size: cover;
-        background-position: center;
+/* ----------  GLOBAL RESET  ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:"Poppins",sans-serif;color:var(--white)}
+img{display:block;max-width:100%;height:auto}
+a{text-decoration:none;color:inherit}
 
-        width: 100%;
-        min-height: 100vh;
-    }
-</style>
-<div id="homepage">
-    <div class="homepage-header">
-        <h1>Bienvenue au Festival Automobile</h1>
-        <p>Un voyage inoubliable dans le monde des voitures de luxe et des sports automobiles.</p>
-    </div>
+/* ----------  HERO  ---------- */
+.hero{
+    position:relative;
+    height:100vh;
+    background:url("../images/home/hero.jpg") center/cover no-repeat;
+}
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
+}
+.navbar{
+    position:absolute;top:0;left:0;
+    width:100%;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1rem var(--gutter);
+    z-index:2;
+}
+.logo{display:flex;align-items:center;gap:.5rem;line-height:1.1}
+.logo-text{font-weight:600;font-size:.95rem}
+.menu{display:flex;align-items:center;gap:.35rem;font-size:.9rem;cursor:pointer}
 
-    <div class="homepage-sections">
-        <div class="section">
-            <img src="{% static 'images/home/events.jpg' %}" alt="Événements">
-            <h2>Événements</h2>
-            <p>Découvrez les événements passionnants, y compris des démonstrations en direct, des courses, et bien plus.</p>
-            <a href="{% url 'app:home' %}" class="btn btn-primary">Explorer</a>
-        </div>
+.hero-content{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:2rem;
+    text-align:center;
+    padding:0 var(--gutter);
+    z-index:2;
+}
+.hero-content h1{
+    font-size:clamp(1.75rem,4vw + 1rem,3rem);
+    font-weight:600;
+    line-height:1.2;
+    max-width:28ch;
+}
+.accent{color:var(--gold)}
+.btn-group{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
 
-        <div class="section">
-            <img src="{% static 'images/home/tickets.jpg' %}" alt="Réservation de billets">
-            <h2>Réservation</h2>
-            <p>Réservez vos billets pour vivre l'action de près.</p>
-            <a href="{% url 'app:reservation' %}" class="btn btn-primary">Réserver</a>
-        </div>
-        
-        <div class="section">
-            <img src="{% static 'images/home/gallery.jpg' %}" alt="Galerie">
-            <h2>Galerie</h2>
-            <p>Admirez les images exclusives des véhicules et des événements passés.</p>
-            <a href="{% url 'app:home' %}" class="btn btn-primary">Voir la galerie</a>
-        </div>
+.btn{
+    border:1px solid var(--gold);
+    padding:.9rem 1.8rem;
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    border-radius:var(--radius);
+    background:transparent;
+    transition:var(--transition);
+}
+.btn:hover{background:var(--gold);color:var(--navy)}
+.btn--gold{background:var(--gold);color:var(--navy)}
+.btn--gold:hover{background:transparent;color:var(--white)}
 
-        <div class="section">
-            <img src="{% static 'images/home/contact.jpg' %}" alt="Contact">
-            <h2>Contact</h2>
-            <p>Nous sommes là pour répondre à toutes vos questions. Contactez-nous dès maintenant.</p>
-            <a href="{% url 'app:home' %}" class="btn btn-primary">Contactez-nous</a>
-        </div>
-    </div>
-</div>
-{% endblock %}
+/* ----------  COUNTDOWN  ---------- */
+.countdown{
+    background:var(--navy);
+    text-align:center;
+    padding:3rem var(--gutter);
+}
+.countdown h2{font-size:1.75rem;margin-bottom:1rem;font-weight:500}
+.time{font-size:2.3rem;font-weight:700;letter-spacing:.04em}
+
+/* ----------  CTA “VENIR”  ---------- */
+.cta-block{
+    background:var(--navy-dark);
+    text-align:center;
+    padding:3rem var(--gutter);
+}
+.cta-block h2{font-size:2rem;margin-bottom:1rem;font-weight:600}
+.small-link{
+    display:inline-block;
+    border:1px solid var(--white);
+    padding:.6rem 1.4rem;
+    border-radius:var(--radius);
+    font-size:.8rem;
+    text-transform:uppercase;
+    transition:var(--transition);
+}
+.small-link:hover{background:var(--gold);color:var(--navy)}
+
+/* ----------  PROGRAMME  ---------- */
+.programme{
+    background:var(--white);
+    color:var(--navy);
+    text-align:center;
+    padding:6rem var(--gutter);
+}
+.programme h2{
+    font-size:2.2rem;font-weight:700;line-height:1.2;
+}
+.year{color:var(--gold)}
+
+/* ----------  GALERIE  ---------- */
+.gallery-intro{
+    background:var(--navy);
+    text-align:center;
+    padding:3.5rem var(--gutter);
+}
+.gallery-intro h2{font-size:2rem;font-weight:600;line-height:1.3}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    overflow:hidden;
+}
+.gallery-grid img{height:280px;object-fit:cover}
+
+.gallery-links{
+    background:var(--navy);
+    display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;
+    padding:3rem var(--gutter) 4rem;
+}
+.thumb{width:120px;text-align:center}
+.thumb img{
+    width:100%;height:100px;object-fit:cover;
+    border-radius:var(--radius);margin-bottom:.5rem
+}
+.thumb span{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}
+
+/* ----------  MAP  ---------- */
+.map-block{
+    position:relative;
+}
+.map-block h2{
+    position:absolute;
+    top:1.5rem;left:50%;
+    transform:translateX(-50%);
+    font-size:1.8rem;
+    font-weight:600;
+    color:var(--gold);
+    text-shadow:0 2px 4px rgba(0,0,0,.6);
+}
+.map-block img{width:100%;display:block}
+
+/* ----------  FOOTER  ---------- */
+.footer{
+    background:var(--navy-dark);
+    text-align:center;
+    padding:3rem var(--gutter) 4rem;
+}
+.socials{display:flex;justify-content:center;gap:1.5rem;margin:1.5rem 0}
+.socials img{width:22px;height:22px;filter:invert(1);transition:var(--transition)}
+.socials a:hover img{filter:invert(0.8) sepia(1) saturate(5) hue-rotate(-20deg)}
+small{font-size:.7rem;opacity:.7}

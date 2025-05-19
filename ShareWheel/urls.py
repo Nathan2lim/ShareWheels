@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('applicompte.urls')),
     path('',include('app.urls')),
-    
+    path('carte/',include('carte.urls')),
     
 ]
 if not settings.DEBUG:

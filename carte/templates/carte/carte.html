@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Carte du Festival - Marqueurs et Images statiques</title>
+  <!-- Inclusion du CSS de Mapbox -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    /* Styles pour les marqueurs personnalisés */
+    .logo-marker {
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <!-- Inclusion de Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script>
+    // Remplacez par votre clé publique Mapbox
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmF0aGFuMmxpbSIsImEiOiJjbTk5c2hxZ2kwZm11MnJzYjk5cDI4d2U1In0.ZsUwZyTORtERfVNc6I0pAw';
+
+    // Définir les chemins d'images en utilisant static
+    const imageUrls = {
+      'rectangle-yellow-5': '{% static "images/LcdjMKEgi_E2uQnVU.jpg" %}',
+      'rectangle-yellow-6': '{% static "images/LcdjMKEgi.jpg" %}',
+      'logo1': '{% static "images/LcdjMKEgi.jpg" %}',
+      'logo2': '{% static "images/LcdjMKEgi_E2uQnVU.jpg" %}'
+    };
+
+    // Préchargement des images avant l'initialisation de la carte
+    const preloadImages = () => {
+      const promises = [];
+      
+      for (const [id, url] of Object.entries(imageUrls)) {
+        promises.push(new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve({ id, img });
+          img.onerror = () => {
+            console.error(`Failed to load image: ${id} from ${url}`);
+            reject(new Error(`Failed to load image: ${id}`));
+          };
+          img.src = url;
+        }));
+      }
+      
+      return Promise.all(promises);
+    };
+
+    // Initialisation de la carte après préchargement des images
+    preloadImages()
+      .then(loadedImages => {
+        // Initialisation de la carte
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [2.3522, 48.8566], // Centre par défaut
+          zoom: 14,
+          pitch: 45,
+          bearing: -17.6
+        });
+
+        // Ajouter les images préchargées à la carte une fois qu'elle est chargée
+        map.on('load', function() {
+          // Ajouter toutes les images préchargées à la carte
+          loadedImages.forEach(({ id, img }) => {
+            if (!map.hasImage(id)) {
+              map.addImage(id, img);
+              console.log(`Image préchargée ajoutée: ${id}`);
+            }
+          });
+
+          // Gestion supplémentaire des images manquantes (fallback)
+          map.on('styleimagemissing', function(event) {
+            const missingId = event.id;
+            if (imageUrls[missingId]) {
+              map.loadImage(imageUrls[missingId], function(error, image) {
+                if (error) {
+                  console.error('Erreur lors du chargement de l\'image pour', missingId, error);
+                  return;
+                }
+                if (!map.hasImage(missingId)) {
+                  map.addImage(missingId, image);
+                  console.log('Image ajoutée:', missingId);
+                }
+              });
+            }
+          });
+
+          // Fonction utilitaire pour créer un marqueur personnalisé avec logo
+          function createLogoMarker(logoUrl) {
+            const el = document.createElement('div');
+            el.className = 'logo-marker';
+            el.style.backgroundImage = 'url(' + logoUrl + ')';
+            return el;
+          }
+
+          // Géocodage de l'adresse "19 rue Haddock Chessy"
+          const address = encodeURIComponent("19 rue Haddock Chessy");
+          const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${mapboxgl.accessToken}`;
+          
+          fetch(geocodingUrl)
+            .then(response => response.json())
+            .then(data => {
+              if (data.features && data.features.length > 0) {
+                // Coordonnées pour "19 rue Haddock Chessy" (format : [longitude, latitude])
+                const coords = data.features[0].center;
+
+                // Premier marqueur personnalisé avec un logo (par exemple, logo rouge)
+                const logoUrl1 = imageUrls['logo1']; // Utiliser l'image déjà préchargée
+                const markerElement1 = createLogoMarker(logoUrl1);
+                new mapboxgl.Marker({ element: markerElement1 })
+                  .setLngLat(coords)
+                  .setPopup(new mapboxgl.Popup().setHTML('<h3>19 rue Haddock, Chessy</h3>'))
+                  .addTo(map);
+
+                // Recentre la carte sur le premier marqueur
+                map.flyTo({ center: coords, zoom: 16 });
+
+                // Calcul du point à 100 m au nord
+                // 1° de latitude ≈ 111111 m, donc 100 m ≈ 0.0009°
+                const deltaLat = 100 / 111111;
+                const coordsNorth = [ coords[0], coords[1] + deltaLat ];
+
+                // Deuxième marqueur personnalisé avec un autre logo (par exemple, logo bleu)
+                const logoUrl2 = imageUrls['logo2']; // Utiliser l'image déjà préchargée
+                const markerElement2 = createLogoMarker(logoUrl2);
+                new mapboxgl.Marker({ element: markerElement2 })
+                  .setLngLat(coordsNorth)
+                  .setPopup(new mapboxgl.Popup().setHTML('<h3>100 m au nord</h3>'))
+                  .addTo(map);
+              } else {
+                console.error("Aucun résultat trouvé pour l'adresse indiquée.");
+              }
+            })
+            .catch(error => {
+              console.error("Erreur lors du géocodage :", error);
+            });
+        });
+      })
+      .catch(error => {
+        console.error("Erreur lors du préchargement des images:", error);
+      });
+  </script>
+</body>
+</html>
