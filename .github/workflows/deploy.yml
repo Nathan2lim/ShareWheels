@@ -21,6 +21,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}     # ex: deployer
           port: ${{ secrets.SSH_PORT }}         # ex: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}   # ta clé privée SSH stockée en secret
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             set -e
             cd /srv/ShareWheels
