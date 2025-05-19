@@ -40,12 +40,15 @@ echo "7. Création des migrations pour l'application 'carte'..."
 docker compose exec web python manage.py makemigrations carte
 
 echo "8. Reconstruire et démarrer les conteneurs..."
+docker compose down
+mkdir -p /srv/ShareWheels/staticfiles && chmod -R 777 /srv/ShareWheels/staticfiles
 docker compose up -d --build
 
 echo "9. Application des migrations..."
 docker compose exec web python manage.py migrate --noinput
 
 echo "10. Collecte des fichiers statiques..."
-docker compose exec web python manage.py collectstatic --noinput
+docker compose exec web bash -c "mkdir -p /app/staticfiles && chmod -R 777 /app/staticfiles"
+docker compose exec web python manage.py collectstatic --noinput --clear
 
 echo "✅ Déploiement terminé $(date)"

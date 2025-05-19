@@ -1,5 +1,3 @@
-version: "3.8"
-
 volumes:
   mariadb_data:
   static_volume:
@@ -66,12 +64,13 @@ services:
       sh -euc "
         until mysqladmin ping -h db --silent; do sleep 2; done
         python manage.py migrate --no-input
-        python manage.py collectstatic --no-input
+        mkdir -p /app/staticfiles
+        python manage.py collectstatic --no-input --clear
         python manage.py runserver 0.0.0.0:8000
       "
     volumes:
       - .:/app
-      - static_volume:/static
+      - static_volume:/app/staticfiles
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.2.1

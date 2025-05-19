@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier le reste du projet après installation des dépendances
 COPY . /app
 
+# Créer le dossier staticfiles et définir les permissions
+RUN mkdir -p /app/staticfiles && chmod -R 777 /app/staticfiles
+
 # Collecte des fichiers statiques
 RUN python manage.py collectstatic --noinput
 
