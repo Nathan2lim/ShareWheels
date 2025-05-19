@@ -1,45 +1,90 @@
-services:
-  db:
-    container_name: BD
-    image: mariadb:10.5
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - mariadb_data:/var/lib/mysql
+version: "3.8"
 
-  web:
-    container_name: Sherwheels
-    build: .
-    command: >
-      sh -c "until mysqladmin ping -h db --silent; do echo 'Waiting for database...'; sleep 5; done && 
-      python manage.py migrate && 
-      python manage.py collectstatic --no-input &&
-      python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/app
-      - static_volume:/app/staticfiles
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    env_file: .env
-
-  phpmyadmin:
-    container_name: Phpmyadmin
-    image: phpmyadmin/phpmyadmin:5.2.1
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root
-
+##########################
+#        VOLUMES         #
+##########################
 volumes:
   mariadb_data:
   static_volume:
+  proxy_certs:
+  proxy_vhost:
+  proxy_html:
+
+##########################
+#        SERVICES        #
+##########################
+
+# ────────── Reverse-proxy + HTTPS ──────────
+nginx-proxy:
+  image: nginxproxy/nginx-proxy:1.4
+  container_name: nginx-proxy
+  restart: unless-stopped
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - proxy_certs:/etc/nginx/certs:ro
+    - proxy_vhost:/etc/nginx/vhost.d
+    - proxy_html:/usr/share/nginx/html
+
+acme-companion:
+  image: nginxproxy/acme-companion:2.2
+  container_name: acme-companion
+  restart: unless-stopped
+  depends_on: [nginx-proxy]
+  environment:
+    DEFAULT_EMAIL: contact@sherwheels.fr          # ← ton mail Let’s Encrypt
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - proxy_certs:/etc/nginx/certs
+    - proxy_vhost:/etc/nginx/vhost.d
+    - proxy_html:/usr/share/nginx/html
+
+# ────────── Base de données ──────────
+db:
+  container_name: BD
+  image: mariadb:10.5
+  restart: always
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: ${DB_NAME}
+    MYSQL_USER: ${DB_USER}
+    MYSQL_PASSWORD: ${DB_PASSWORD}
+  volumes:
+    - mariadb_data:/var/lib/mysql
+
+# ────────── Application Django ──────────
+web:
+  container_name: Sherwheels
+  build: .
+  restart: always
+  depends_on: [db]
+  expose:                # plus de mapping 8000:8000 !
+    - "8000"
+  environment:
+    VIRTUAL_HOST: sherwheels.fr,www.sherwheels.fr
+    LETSENCRYPT_HOST: sherwheels.fr,www.sherwheels.fr
+    LETSENCRYPT_EMAIL: contact@sherwheels.fr
+  env_file: .env
+  command: >
+    sh -euc "
+      until mysqladmin ping -h db --silent; do sleep 2; done
+      python manage.py migrate --no-input
+      python manage.py collectstatic --no-input
+      python manage.py runserver 0.0.0.0:8000
+    "
+  volumes:
+    - .:/app
+    - static_volume:/static            # STATIC_ROOT = /static
+
+# ────────── phpMyAdmin (optionnel) ──────────
+phpmyadmin:
+  container_name: Phpmyadmin
+  image: phpmyadmin/phpmyadmin:5.2.1
+  restart: always
+  ports:
+    - "8080:80"
+  environment:
+    PMA_HOST: db
+    MYSQL_ROOT_PASSWORD: root
