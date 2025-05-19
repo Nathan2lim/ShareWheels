@@ -1,132 +1,148 @@
+{% extends 'app/base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'app/css/homepage.css' %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Teko:wght@400;600&display=swap" rel="stylesheet" />
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-{% extends 'app/base.html' %}
-{% load static %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'app/css/homepage.css' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Teko:wght@400;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" integrity="sha512-XxK52QZ6egCYZ9mkx9E8u6KDAdAm8YGtS+wGGyRyvE4s46HoPazTA/gkGEXUXMaLLfi5yRvDqxn6V9KpL+ljfg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{% endblock %} {% block title %} Galerie {% endblock %} {% block main %}
 
-{% endblock %}
-
-{% block title %} Galerie {% endblock %}
-{% block main %}
-  <!-- ===== HEADER ===== -->
-  <header class="container">
-    <div class="logo"><span>SW</span><strong>Sher</strong> Wheels<br><small style="font-size:.6rem;font-weight:600;letter-spacing:.25em;">Festival</small></div>
-    <div class="burger" title="Menu"><i class="fas fa-bars"></i> Menu</div>
-  </header>
-
-  <!-- ===== HERO ===== -->
-  <section class="hero angle-bottom">
-    <h1>Venez faire le plein de connaissances auto / moto&nbsp;!</h1>
-    <div class="cta">
-      <a href="#venir" class="btn">Comment venir&nbsp;?</a>
-      <a href="#billets" class="btn">Je prends mes billets</a>
-      <a href="#programmation" class="btn">La programmation</a>
+<!-- ===== TOP ===== -->
+<section id="top" class="top angle-bottom">
+    <div class="d-flex justify-content-end" style="position: absolute; top: 116px; left: 0; right: 138px; z-index: 1;">
+        <div class="burger" title="Menu">
+            Menu
+            <i class="fas fa-bars"></i>
+        </div>
     </div>
-  </section>
-
-  <!-- ===== COUNTDOWN ===== -->
-  <section class="white angle-top angle-bottom">
-    <div class="countdown-wrapper container">
-      <h2 class="countdown-title">Rendez-vous dans</h2>
-      <div class="countdown" id="countdown"></div>
-    </div>
-  </section>
-
-  <!-- ===== COMMENT VENIR ===== -->
-  <section id="venir" class="dark angle-top angle-bottom">
     <div class="container">
-      <h2>Comment venir&nbsp;?</h2>
-      <div class="info-btn-wrapper">
-        <a href="#" class="btn">Nos plans transports et logements</a>
-      </div>
+        <img src="{% static 'app/images/top.png' %}" alt="Logo Sherwheels Festival" class="img-fluid mx-auto" />
+        <h2>Venez faire le plein de connaissances auto / moto !</h2>
+        <div class="d-flex justify-content-between anchors">
+            <a href="#venir" class="btn">Comment venir ?</a>
+            <a href="#billets" class="btn">Je prends mes billets</a>
+            <a href="#programmation" class="btn">La programmation</a>
+        </div>
     </div>
-  </section>
-
-  <!-- ===== GALLERY ===== -->
-  <section id="programmation" class="white angle-top angle-bottom gallery-wrapper">
-    <div class="container">
-      <h2 class="gallery-title">La galerie officielle du festival</h2>
-      <!-- Banner 3 images -->
-      <div class="gallery-banner">
-        <img src="https://images.unsplash.com/photo-1471478331148-cde32844c600?auto=format&fit=crop&w=900&q=80" alt="Compteur">
-        <img src="https://images.unsplash.com/photo-1472417583565-62e7bdeda490?auto=format&fit=crop&w=900&q=80" alt="Moteur chromé">
-        <img src="https://images.unsplash.com/photo-1525600432651-ac6ad50284cb?auto=format&fit=crop&w=900&q=80" alt="Intérieur voiture">
-      </div>
-      <!-- Tiles -->
-      <div class="gallery-tiles">
-        <div class="tile-wrapper">
-          <div class="tile"><img src="https://images.unsplash.com/photo-1566139092578-5bf5010d5e1e?auto=format&fit=crop&w=650&q=80" alt="Ateliers"></div>
-          <div class="tile-caption">Ateliers</div>
-        </div>
-        <div class="tile-wrapper">
-          <div class="tile"><img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=650&q=80" alt="Conférences"></div>
-          <div class="tile-caption">Conférences</div>
-        </div>
-        <div class="tile-wrapper">
-          <div class="tile"><img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=650&q=80" alt="Ambiance"></div>
-          <div class="tile-caption">L'ambiance</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MAP ===== -->
-  <section class="white angle-top angle-bottom map-wrapper" id="billets">
-  <h2 class="map-title">Sherwheels Festival</h2>
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.999630872201!2d2.29229231567446!3d48.85837007928771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3AEiffel%20Tower!2sEiffel%20Tower!5e0!3m2!1sfr!2sfr!4v1681515330000!5m2!1sfr!2sfr"
-    allowfullscreen
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
 </section>
 
+<!-- ===== COUNTDOWN ===== -->
+<section id="ctdw" class="white angle-top angle-bottom">
+    <div class="container">
+        <h2>Rendez-vous dans</h2>
+        <div class="countdown" id="countdown"></div>
+    </div>
+</section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="footer-brand">
-      <div class="brand-icon">SW</div>
-      <div class="brand-text">
-        <span class="brand-top">SHER</span>
-        <span class="brand-mid">WHEELS</span>
-        <span class="brand-bottom">FESTIVAL</span>
-      </div>
+<!-- ===== COMMENT VENIR ===== -->
+<section id="venir" class="dark angle-top angle-bottom">
+    <div class="container">
+        <h2>Comment venir ?</h2>
+        <div class="d-flex">
+            <a href="#" class="btn mx-auto">Nos plans transports et logements</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROGRAMMATION 2025 ===== -->
+<section id="programmation" class="white angle-top angle-bottom">
+    <div class="container">
+        <h2>Programmation</h2>
+        <h2>2025</h2>
+        <div class="space"></div>
+    </div>
+</section>
+
+<!-- ===== GALLERIE ===== -->
+<section id="gallery" class="dark angle-top angle-bottom gallery-wrapper">
+    <div class="container">
+        <h2>La galerie officielle du festival</h2>
+    </div>
+    <div class="position-relative">
+        <button class="carousel-arrow left-arrow">&#10094;</button>
+        <div class="d-flex carousel overflow-auto">
+            <img src="{% static 'app/images/compteur.png' %}" alt="Logo compteur" class="img-fluid">
+            <img src="{% static 'app/images/moteur.png' %}" alt="Logo moteur chromé" class="img-fluid">
+            <img src="{% static 'app/images/interieur.png' %}" alt="Logo intérieur voiture" class="img-fluid">
+        </div>
+        <button class="carousel-arrow right-arrow">&#10095;</button>
+    </div>
+    <div class="container">
+        <div class="row pics d-flex justify-content-between">
+            <div class="col-md-4">
+                <img src="{% static 'app/images/ateliers.png' %}" alt="Logo ateliers" class="img-fluid mx-auto">
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'app/images/conferences.png' %}" alt="Logo conférences" class="img-fluid mx-auto">
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'app/images/ambiance.png' %}" alt="Logo ambiance" class="img-fluid mx-auto">
+            </div>
+        </div>
+        <div class="row titles d-flex justify-content-between">
+            <div class="col-md-4 p">Ateliers</div>
+            <div class="col-md-4 p">Conférences</div>
+            <div class="col-md-4 p">L'ambiance</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MAP ===== -->
+<section id="map" class="dark map-wrapper">
+    <h2>Sherwheels Festival</h2>
+    <div class="map-overlay"></div>
+    <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBdL2uZO9zF4EgmOYrlgfirLdS6_WwHqGU&q=Disney+Land+Paris&zoom=15&maptype=satellite" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0" style="pointer-events: none;"></iframe>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section id="footer" class="white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{% static 'app/images/footer.png' %}" alt="Logo footer" class="img-fluid mx-auto">
+            </div>
+        </div>
     </div>
     <div class="social">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
     </div>
-    <small>&copy; SherWheels Festival – 2025</small>
-  </footer>
+    <p>SherWheels Festival - 2025</p>
+</section>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script>
+<!-- ===== SCRIPTS ===== -->
+<script>
     /* Countdown */
-    const countdownEl=document.getElementById('countdown');
-    const eventDate=new Date('2025-06-20T09:00:00');
-    const pad=n=>String(n).padStart(2,'0');
-    function updateCountdown(){
-      const diff=eventDate-new Date();
-      if(diff<=0){countdownEl.textContent='C\\'est parti !';clearInterval(timer);return;}
-      const d=Math.floor(diff/864e5);
-      const h=Math.floor(diff/36e5)%24;
-      const m=Math.floor(diff/6e4)%60;
-      const s=Math.floor(diff/1e3)%60;
-      countdownEl.innerHTML=`<span>${d}<small>j</small></span><span>${pad(h)}<small>h</small></span><span>${pad(m)}<small>m</small></span><span>${pad(s)}<small>s</small></span>`;
+    const countdownEl = document.getElementById("countdown");
+    const eventDate = new Date("2025-06-20T09:00:00");
+    const pad = (n) => String(n).padStart(2, "0");
+    function updateCountdown() {
+        const diff = eventDate - new Date();
+        if (diff <= 0) {
+            countdownEl.textContent = "C'est parti !";
+            clearInterval(timer);
+            return;
+        }
+        const d = Math.floor(diff / 864e5);
+        const h = Math.floor(diff / 36e5) % 24;
+        const m = Math.floor(diff / 6e4) % 60;
+        const s = Math.floor(diff / 1e3) % 60;
+        countdownEl.innerHTML = `<span>${d}<small>j</small></span><span>${pad(
+            h
+        )}<small>h</small></span><span>${pad(m)}<small>m</small></span><span>${pad(
+            s
+        )}<small>s</small></span>`;
     }
     updateCountdown();
-    const timer=setInterval(updateCountdown,1000);
+    const timer = setInterval(updateCountdown, 100000);
 
     /* Burger demo */
-    document.querySelector('.burger').addEventListener('click',()=>alert('Menu en construction'));
-  </script>
-
+    document
+        .querySelector(".burger")
+        .addEventListener("click", () => alert("Menu en construction"));
+</script>
 
 {% endblock %}

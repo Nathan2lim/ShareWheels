@@ -1,5 +1,7 @@
-<footer class="custom-footer">
-    <div class="container">
-        <p>Site développé entièrement par Thomas BIZET</p>
-    </div>
-</footer>
+{% if not request.path == '/' %}
+    <footer class="custom-footer">
+        <div class="container">
+            <p>Site développé entièrement par Thomas BIZET</p>
+        </div>
+    </footer>
+{% endif %}

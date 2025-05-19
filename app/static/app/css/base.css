@@ -115,9 +115,9 @@
   /* =========================
      MAIN (CONTENU)
      ========================= */
-  main {
-    padding: 5rem 1rem 2rem; /* Pour laisser de la place en haut pour la navbar */
-  }
+  /* main {
+    padding: 5rem 1rem 2rem; /* Pour laisser de la place en haut pour la navbar
+  } */
   main h1, main h2, main h3, main h4, main h5, main h6 {
     color: var(--color-rouge-orange-dark);
     margin-top: 1rem;
