@@ -1,0 +1,30 @@
+# .github/workflows/deploy.yml
+name: 📦 Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Déploiement Prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Déclencher le script de déploiement sur le serveur
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SSH_HOST }}         # ex: 123.45.67.89
+          username: ${{ secrets.SSH_USER }}     # ex: deployer
+          port: ${{ secrets.SSH_PORT }}         # ex: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}   # ta clé privée SSH stockée en secret
+          script: |
+            set -e
+            cd /srv/ShareWheels
+            echo "=== Début du déploiement (via GitHub Actions) : $(date) ==="
+            ./deploy.sh
+            echo "=== Fin du déploiement (via GitHub Actions) : $(date) ==="
+            echo "=== Déploiement terminé avec succès ! ==="
