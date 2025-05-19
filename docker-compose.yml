@@ -66,6 +66,7 @@ services:
         python manage.py migrate --no-input
         mkdir -p /app/staticfiles
         python manage.py collectstatic --no-input --clear
+        
         exec gunicorn ShareWheel.wsgi:application
            --bind 0.0.0.0:8000
            --workers 3
