@@ -1,10 +1,9 @@
 {% extends "app/base.html" %} {% block title %} Mes tickets {% endblock %}
-{% block main %}
-{%load static%}
+{% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/app-mytickets.css' %}">
-
+<link rel="stylesheet" href="{% static 'app/css/app-mytickets.css' %}">
 {% endblock %}
+{% block main %}
     <div class="container mt-5">        
         <!-- Section : Tickets de l'utilisateur -->
         <h2 class="mt-4">Mes Tickets</h2>

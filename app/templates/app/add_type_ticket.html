@@ -1,11 +1,12 @@
 
 {% extends "app/base.html" %} {% block title %} Ajouter un type de ticket {% endblock %}
-{% block main %}
-{%load static%}
+{% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/app-add_type_ticket.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/app-add_type_ticket.css' %}">
 
 {% endblock %}
+
+{% block main %}
 
 <div class="container mt-5">
     <h1>Ajouter un Type de Ticket</h1>

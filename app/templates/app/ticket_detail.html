@@ -1,8 +1,8 @@
 {% extends "app/base.html" %}
 {% block title %}Détail du ticket n°{{ ticket.id }}{% endblock %}
-{%load static%}
+{% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/ticket_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/ticket_detail.css' %}">
 {% endblock %}
 
 {% block main %}
