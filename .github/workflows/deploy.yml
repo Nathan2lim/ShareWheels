@@ -3,29 +3,22 @@ name: 📦 Deploy to Production
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
-    name: Déploiement Prod
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout du code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Déclencher le script de déploiement sur le serveur
-        uses: appleboy/ssh-action@v0.1.6
+      - name: Ajouter la clé SSH à l’agent
+        uses: webfactory/ssh-agent@v0.8.1
         with:
-          host: ${{ secrets.SSH_HOST }}         # ex: 123.45.67.89
-          username: ${{ secrets.SSH_USER }}     # ex: deployer
-          port: ${{ secrets.SSH_PORT }}         # ex: 22
-          key: ${{ secrets.SSH_PRIVATE_KEY }}   # ta clé privée SSH stockée en secret
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: |
-            set -e
-            cd /srv/ShareWheels
-            echo "=== Début du déploiement (via GitHub Actions) : $(date) ==="
-            ./deploy.sh
-            echo "=== Fin du déploiement (via GitHub Actions) : $(date) ==="
-            echo "=== Déploiement terminé avec succès ! ==="
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Déployer via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            -p ${{ secrets.SSH_PORT }} \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            'cd /srv/ShareWheels && ./deploy.sh'
