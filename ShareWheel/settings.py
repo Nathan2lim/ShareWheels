@@ -129,10 +129,12 @@ USE_TZ = True
 STATIC_URL = "/static/" 
 STATIC_ROOT = BASE_DIR / "staticfiles"  
 
+# Organiser les fichiers statiques par application pour éviter les conflits
+# Chaque application aura son propre dossier dans les fichiers statiques
 STATICFILES_DIRS = [
-    BASE_DIR / "app/static",        # Pour l'application "app"
-    BASE_DIR / "applicompte/static", # Pour l'application "applicompte"
-    BASE_DIR / "carte/static"       # Pour l'application "carte"
+    ("app", BASE_DIR / "app/static"),        # Pour l'application "app"
+    ("applicompte", BASE_DIR / "applicompte/static"), # Pour l'application "applicompte"
+    ("carte", BASE_DIR / "carte/static")       # Pour l'application "carte"
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier le reste du projet après installation des dépendances
 COPY . /app
 
+# Collecte des fichiers statiques
+RUN python manage.py collectstatic --noinput
+
 # Exposer le port 8000 pour Django
 EXPOSE 8000
 
