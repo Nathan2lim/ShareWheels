@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Désactive acme-companion (il ne redémarre pas et ne fait rien)
+  acme-companion:
+    restart: "no"
+    entrypoint: ["true"]
+
+  # On réexplose nginx-proxy pour qu’il prenne tes certs locales
+  nginx-proxy:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      - proxy_vhost:/etc/nginx/vhost.d
+      - proxy_html:/usr/share/nginx/html
+
+  # On override juste les vars et expose le port pour tester directement
+  web:
+    ports:
+      - "8000:8000"
+    environment:
+      VIRTUAL_HOST: sherwheels.test
+      LETSENCRYPT_HOST: ""
+      LETSENCRYPT_EMAIL: ""

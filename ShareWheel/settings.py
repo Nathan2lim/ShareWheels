@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3f600dvw$qm0*h*kuqml0saqvorq*h)9e6(c8f4#(ugu$9yi(6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost', 'sherwheels.fr', 'www.sherwheels.fr']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'sherwheels.fr', 'www.sherwheels.fr','sherwheels.test']
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Application definition
