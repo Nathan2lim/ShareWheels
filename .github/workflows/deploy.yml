@@ -1,26 +1,36 @@
-# .github/workflows/deploy.yml
 name: 📦 Deploy to Production
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Déploiement Prod
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout du code
+        uses: actions/checkout@v3
 
-      - name: Ajouter la clé SSH à l’agent
-        # Change ici pour un tag qui existe vraiment
+      - name: Charger la clé SSH dans l’agent
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Vérifier la connexion SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+              -p ${{ secrets.SSH_PORT }} \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              echo "✅ SSH OK depuis Actions"
+        shell: bash
+
       - name: Déployer via SSH
         run: |
           ssh -o StrictHostKeyChecking=no \
-            -p ${{ secrets.SSH_PORT }} \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'cd /srv/ShareWheels && ./deploy.sh'
+              -p ${{ secrets.SSH_PORT }} \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              'cd /srv/ShareWheels && ./deploy.sh'
+        shell: bash
