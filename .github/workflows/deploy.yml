@@ -8,11 +8,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Ajouter la clé SSH à l’agent
-        uses: webfactory/ssh-agent@v0.8.1
+        # Change ici pour un tag qui existe vraiment
+        uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
