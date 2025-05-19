@@ -1,3 +1,4 @@
+# .github/workflows/deploy.yml
 name: 📦 Deploy to Production
 
 on:
@@ -7,7 +8,6 @@ on:
 
 jobs:
   deploy:
-    name: Déploiement Prod
     runs-on: ubuntu-latest
 
     steps:
@@ -21,15 +21,17 @@ jobs:
 
       - name: Vérifier la connexion SSH
         run: |
-          ssh -o StrictHostKeyChecking=no \
+          ssh -A \
+              -o StrictHostKeyChecking=no \
               -p ${{ secrets.SSH_PORT }} \
               ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
               echo "✅ SSH OK depuis Actions"
         shell: bash
 
-      - name: Déployer via SSH
+      - name: Déployer via SSH (avec agent-forwarding)
         run: |
-          ssh -o StrictHostKeyChecking=no \
+          ssh -A \
+              -o StrictHostKeyChecking=no \
               -p ${{ secrets.SSH_PORT }} \
               ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
               'cd /srv/ShareWheels && ./deploy.sh'
