@@ -61,6 +61,13 @@ else
 
     echo "10. Collecte des fichiers statiques..."
     docker compose exec web bash -c "mkdir -p /app/staticfiles && chmod -R 777 /app/staticfiles"
+    
+    # Création préalable des répertoires pour éviter l'erreur de fichiers statiques
+    docker compose exec web bash -c "mkdir -p /app/staticfiles/app/svg/ios/CAFR/CMYK"
+    docker compose exec web bash -c "mkdir -p /app/staticfiles/app/svg/ios/FR/RGB"
+    docker compose exec web bash -c "mkdir -p /app/staticfiles/app/svg/android/fr"
+    docker compose exec web bash -c "chmod -R 777 /app/staticfiles"
+    
     docker compose exec web python manage.py collectstatic --noinput --clear
 
     echo "✅ Déploiement terminé $(date)"

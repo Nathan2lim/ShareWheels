@@ -21,9 +21,6 @@ COPY . /app
 # Créer le dossier staticfiles et définir les permissions
 RUN mkdir -p /app/staticfiles && chmod -R 777 /app/staticfiles
 
-# Collecte des fichiers statiques
-RUN python manage.py collectstatic --noinput
-
 # Exposer le port 8000 pour Django
 EXPOSE 8000
 

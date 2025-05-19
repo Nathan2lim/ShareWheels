@@ -23,11 +23,11 @@
     </p> 
     {% if device_type == 'ios' %}
         <a href="https://api.skyhosting.fr/sherwheels?qrcode={{ ticket.qr_code }}&firstname={{ ticket.name }}&lastname={{ ticket.prenom }}&immatriculation={{ ticket.user.userprofile.imatriculation }}" target="_blank">
-            <img src="{% static 'svg/ios/FR/RGB/FR_Add_to_Apple_Wallet_RGB_102921.svg' %}" alt="Événements">
+            <img src="{% static 'app/svg/ios/FR/RGB/FR_Add_to_Apple_Wallet_RGB_102921.svg' %}" alt="Événements">
         </a>
     {% elif device_type == 'android' %}
         <a href="https://api.skyhosting.fr/sherwheels?qrcode={{ ticket.qr_code }}&firstname={{ ticket.name }}&lastname={{ ticket.prenom }}&immatriculation={{ ticket.user.userprofile.imatriculation }}" target="_blank">
-            <img src="{% static 'svg/android/fr/Save to Google Pay - French (Dark).svg' %}" alt="Événements">
+            <img src="{% static 'app/svg/android/fr/Save to Google Pay - French (Dark).svg' %}" alt="Événements">
         </a>
     {% endif %}
     <p><strong>Lien QR Code :</strong> {{ ticket.qr_code }}</p>
