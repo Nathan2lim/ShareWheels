@@ -13,8 +13,7 @@ COPY requirements.txt /app/
 
 # Mise à jour de pip et installation des dépendances Python
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install --no-cache-dir -r requirements.txt \
-    pip install gunicorn
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le reste du projet après installation des dépendances
 COPY . /app

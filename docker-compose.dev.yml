@@ -25,3 +25,5 @@ services:
       VIRTUAL_HOST: sherwheels.test
       LETSENCRYPT_HOST: ""
       LETSENCRYPT_EMAIL: ""
+    # Utiliser le serveur de développement Django en mode local au lieu de gunicorn
+    command: python manage.py runserver 0.0.0.0:8000
