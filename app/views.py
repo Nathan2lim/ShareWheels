@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.conf import settings
 from .forms import PhotoForm
 from django.contrib import messages
+from django.urls import reverse
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -38,34 +39,36 @@ def create_payment(request, ticket_type_id):
     if not request.user.is_authenticated:
         messages.warning(request, "Vous devez vous connecter pour réserver un ticket.")
         return redirect('applicompte:login')
-    
-    # Récupère le type de ticket à payer
+
     ticket_type = get_object_or_404(TypeTicket, id=ticket_type_id)
 
-    # Crée une session de paiement Stripe
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=[
-            {
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {
-                        'name': ticket_type.nom_type,
-                    },
-                    'unit_amount': int(ticket_type.tarif * 100),  # Convertir en centimes
-                },
-                'quantity': 1,
-            },
-        ],
-        mode='payment',
-        success_url = f"{reversed('success')}?ticket_type_id={ticket_type.id}",
-        cancel_url = f"{reversed('gallery')}"
+    # -- Choix du schéma et du domaine selon l’environnement ----------
+    if settings.DEBUG:                           # ⇢ exécutez `runserver`
+        base = "http://127.0.0.1:8000"           # localhost accepté en HTTP
+    else:
+        base = f"https://{request.get_host()}"   # prod en HTTPS
 
+    success_url = (
+        f"{base}{reverse('app:success')}"
+        f"?ticket_type_id={ticket_type.id}&session_id={{CHECKOUT_SESSION_ID}}"
     )
+    cancel_url  = f"{base}{reverse('app:cancel')}"
 
-    # Redirige vers Stripe Checkout
+    session = stripe.checkout.Session.create(
+        mode='payment',
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'eur',
+                'product_data': {'name': ticket_type.nom_type},
+                'unit_amount': int(ticket_type.tarif * 100),
+            },
+            'quantity': 1,
+        }],
+        success_url=success_url,
+        cancel_url=cancel_url,
+    )
     return redirect(session.url, code=303)
-
 
 
 def success(request):

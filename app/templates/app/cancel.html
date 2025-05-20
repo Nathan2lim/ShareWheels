@@ -1,0 +1,18 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title text-danger mb-4">Réservation Annulée</h2>
+                    <p class="card-text">Vous avez annulé votre processus de paiement. Aucun montant n'a été débité de votre compte.</p>
+                    <p class="card-text mb-4">Si vous souhaitez toujours réserver un billet, vous pouvez réessayer en retournant à la page de réservation.</p>
+                    <a href="{% url 'app:home' %}" class="btn btn-primary">Retourner à l'accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

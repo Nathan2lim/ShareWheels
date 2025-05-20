@@ -114,7 +114,7 @@ def reset_password(request, uidb64, token):
     
     if request.user.is_authenticated:
         messages.info(request, "Vous êtes déjà connecté. Déconnectez-vous pour utiliser cette fonctionnalité.")
-        return redirect('applicompte:editpassword')
+        return redirect('app:home')
     
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))

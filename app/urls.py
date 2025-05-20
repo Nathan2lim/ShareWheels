@@ -15,6 +15,7 @@ urlpatterns = [
     path('reservation/', views.reservation, name='reservation'),
     path('payment/<int:ticket_type_id>/', views.create_payment, name='create_payment'),
     path('success/', views.success, name='success'),  # Assurez-vous que le nom de la vue est correct
+    path("payment/cancel/",  views.cancel,  name="cancel"),
     path('gallery/', views.gallery, name='gallery'),
     path('add-photo/', views.add_photo, name='add_photo'),
     path('add-ticket/', views.add_ticket, name='add_ticket'),
