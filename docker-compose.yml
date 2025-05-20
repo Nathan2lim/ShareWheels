@@ -59,6 +59,7 @@ services:
       VIRTUAL_PORT: 8000
       LETSENCRYPT_HOST: sherwheels.fr
       LETSENCRYPT_EMAIL: contact@sherwheels.fr
+      CLIENT_MAX_BODY_SIZE: 50m 
     env_file: .env
     command: >
       sh -euc "
