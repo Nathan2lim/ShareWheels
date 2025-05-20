@@ -2,18 +2,24 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'app/css/app-add_ticket.css' %}">
-
 {% endblock %}
 
-{% block title %} Connexion {% endblock %}
+{% block title %}Ajouter un Ticket{% endblock %}
 {% block main %}
-<div class="container mt-5">
-    <h1>Ajouter un Ticket</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Ajouter</button>
-        <a href="{% url 'app:ticket_list' %}" class="btn btn-secondary">Retour</a>
-    </form>
+<div class="ticket-form-container">
+    <div class="ticket-form-header animate-on-scroll">
+        <h1 class="ticket-form-title">Ajouter un Ticket</h1>
+    </div>
+    
+    <div class="ticket-form-card animate-on-scroll">
+        <form method="post" class="ticket-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="action-btn submit-btn">Ajouter</button>
+                <a href="{% url 'app:ticket_list' %}" class="action-btn cancel-btn">Annuler</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

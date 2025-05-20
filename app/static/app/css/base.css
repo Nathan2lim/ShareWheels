@@ -1,53 +1,95 @@
 /* =========================
    VARIABLES DE COULEURS
    ========================= */
-   :root {
-    /* Palette principale, plus discrète */
-    --color-rouge-orange: #d35400; /* Rouge/Orange sobre */
-    --color-rouge-orange-dark: #c0392b; /* Variante plus foncée pour hover */
-    --color-jaune: #f1c40f;            /* Jaune un peu plus doux */
-    --color-bleu: #2980b9;             /* Bleu plus sobre */
-    --color-blanc: #ffffff;
-  
+:root {
+    /* Palette harmonisée avec la page d'accueil */
+    --navy: #223152;         /* Bleu marine foncé (couleur principale) */
+    --navy-dark: #0b1a34;    /* Variante plus foncée */
+    --gold: #f8c300;         /* Or (accentuation) */
+    --gold-dark: #D2B589;    /* Or foncé (accentuation secondaire) */
+    --white: #ffffff;        /* Blanc */
+    --black: #000000;        /* Noir */
+    
     /* Couleurs de fond et de texte */
-    --color-bg: #f8f9fa;  /* Gris clair proche du blanc */
-    --color-text: #2c3e50; /* Gris foncé pour un meilleur confort de lecture */
-  }
-  
-  /* =========================
-     RESET ET BASE GENERALE
-     ========================= */
-  html, body {
+    --color-bg: var(--white);
+    --color-text: var(--navy);
+    
+    /* Autres variables */
+    --section-padding: 10rem 4rem;
+}
+
+/* =========================
+   RESET ET BASE GENERALE
+   ========================= */
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    height: 100%; /* Assure que le conteneur couvre toute la hauteur */
+}
 
-  }
-  
-  /* =========================
-     LIENS
-     ========================= */
-  a {
-    color: var(--color-bleu);
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    background: var(--color-bg);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =========================
+   LIENS
+   ========================= */
+a {
     text-decoration: none;
-  }
-  a:hover {
-    color: var(--color-rouge-orange-dark);
-    text-decoration: underline;
-  }
-  
-  /* =========================
-     NAVBAR (HEADER)
-     ========================= */
-  .navbar-dark.bg-dark {
-    /* Couleur de fond plus foncée, mais avec un léger rappel de ton orange. */
-    background-color: var(--color-rouge-orange) !important;
-    border-bottom: 3px solid var(--color-jaune);
-  }
+    color: var(--navy);
+    transition: color 0.3s, transform 0.3s;
+}
+
+a:hover {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+/* =========================
+   BOUTONS
+   ========================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    padding: 0.85rem 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    background: transparent;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.btn:hover {
+    background: var(--gold) !important;
+    color: var(--navy-dark) !important;
+    text-decoration: none !important;
+}
+
+/* =========================
+   NAVBAR (HEADER)
+   ========================= */
+.navbar-dark.bg-dark {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 2px solid var(--gold);
+}
   
   /* Brand */
   .navbar-brand {

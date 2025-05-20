@@ -1,0 +1,108 @@
+/* =========================
+   VARIABLES DE COULEURS ET STYLES GLOBAUX
+   ========================= */
+:root {
+    /* Palette harmonisée avec la page d'accueil */
+    --navy: #223152;         /* Bleu marine foncé (couleur principale) */
+    --navy-dark: #0b1a34;    /* Variante plus foncée */
+    --gold: #f8c300;         /* Or (accentuation) */
+    --gold-dark: #D2B589;    /* Or foncé (accentuation secondaire) */
+    --white: #ffffff;        /* Blanc */
+    --black: #000000;        /* Noir */
+    --light-grey: #f8f9fa;   /* Gris clair pour les fonds */
+    --medium-grey: #e9ecef;  /* Gris moyen pour les bordures */
+    --dark-grey: #343a40;    /* Gris foncé pour les textes secondaires */
+    
+    /* Couleurs de fond et de texte */
+    --color-bg: var(--white);
+    --color-text: var(--navy);
+    
+    /* Autres variables */
+    --section-padding: 10rem 4rem;
+    --header-height: 80px;   /* Hauteur du header pour le padding du main */
+    --border-radius: 2px;    /* Rayon de bordure uniforme */
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  /* Ombre standard */
+    --transition: all 0.3s ease; /* Transition standard */
+}
+
+/* =========================
+   TYPOGRAPHIE DE BASE
+   ========================= */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--navy);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    background: var(--color-bg);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: var(--navy);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+/* =========================
+   UTILITAIRES
+   ========================= */
+.text-gold {
+    color: var(--gold-dark) !important;
+}
+
+.text-navy {
+    color: var(--navy) !important;
+}
+
+.bg-navy {
+    background-color: var(--navy) !important;
+}
+
+.bg-gold {
+    background-color: var(--gold) !important;
+}
+
+.border-gold {
+    border-color: var(--gold-dark) !important;
+}
+
+.border-navy {
+    border-color: var(--navy) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow {
+    box-shadow: var(--box-shadow) !important;
+}
+
+/* =========================
+   ANIMATION
+   ========================= */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

@@ -3,32 +3,51 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'applicompte/css/applicompte-usersetting.css' %}">
-
 {% endblock %}
 
-{% block title %} Connexion {% endblock %}
+{% block title %}Mon Profil{% endblock %}
 {% block main %}
 
-<div class="container mt-5">
-    <h1 class="mb-4">Mon Profil</h1>
+<div class="container profile-container">
+    <div class="profile-header animate-on-scroll">
+        <h1 class="profile-title">Mon Profil</h1>
+    </div>
     
-    <div class="card">
-        <div class="card-header bg-dark text-white">
-            Informations utilisateur
+    <div class="profile-card animate-on-scroll">
+        <div class="profile-card-header">
+            <h2>Informations personnelles</h2>
         </div>
-        <div class="card-body">
-            <p><strong>Nom d'utilisateur :</strong> {{ user.username }}</p>
-            <p><strong>Alias :</strong> {{ user.userprofile.alias }}</p>
-            <p><strong>Email :</strong> {{ user.email }}</p>
-            <p><strong>Prénom :</strong> {{ user.first_name }}</p>
-            <p><strong>Nom :</strong> {{ user.last_name }}</p>
-            <p><strong>Date de création du compte :</strong> {{ user.date_joined|date:"d/m/Y H:i" }}</p>
+        <div class="profile-card-body">
+            <div class="profile-info">
+                <div class="info-label">Nom d'utilisateur</div>
+                <div class="info-value">{{ user.username }}</div>
+            </div>
+            <div class="profile-info">
+                <div class="info-label">Alias</div>
+                <div class="info-value">{{ user.userprofile.alias }}</div>
+            </div>
+            <div class="profile-info">
+                <div class="info-label">Email</div>
+                <div class="info-value">{{ user.email }}</div>
+            </div>
+            <div class="profile-info">
+                <div class="info-label">Prénom</div>
+                <div class="info-value">{{ user.first_name }}</div>
+            </div>
+            <div class="profile-info">
+                <div class="info-label">Nom</div>
+                <div class="info-value">{{ user.last_name }}</div>
+            </div>
+            <div class="profile-info">
+                <div class="info-label">Date d'inscription</div>
+                <div class="info-value">{{ user.date_joined|date:"d/m/Y H:i" }}</div>
+            </div>
         </div>
     </div>
     
-    <div class="mt-4">
-        <a href="{% url 'applicompte:edit_profile' %}" class="btn btn-primary">Modifier mon profil</a>
-        <a href="{% url 'applicompte:logout' %}" class="btn btn-danger">Déconnexion</a>
+    <div class="profile-actions animate-on-scroll">
+        <a href="{% url 'applicompte:edit_profile' %}" class="action-btn edit-btn">Modifier mon profil</a>
+        <a href="{% url 'applicompte:logout' %}" class="action-btn logout-btn">Déconnexion</a>
     </div>
 </div>
 {% endblock %}

@@ -1,21 +1,56 @@
 /* =========================
    FOOTER
    ========================= */
-   .custom-footer {
-    background-color: var(--color-bleu, #2980b9);
-    color: var(--color-blanc, #fff);
+.custom-footer {
+    background-color: var(--white, #ffffff);
+    color: var(--navy, #223152);
     text-align: center;
-    padding: 1rem 0;
-    margin-top: 2rem;
-    border-top: 2px solid var(--color-jaune, #f1c40f);
-  }
-  
-  .custom-footer p {
+    padding: 4rem 0 0;
+}
+
+.custom-footer p {
     margin: 0;
-    font-size: 0.95rem;
-  }
-  #main-container {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    padding-bottom: 64px;
+}
+
+.custom-footer .social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.25rem;
+    margin-top: 88px;
+    margin-bottom: 24px;
+}
+
+.custom-footer .social a {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    border: 2px solid var(--navy, #223152);
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: 0.3s;
+    color: var(--navy, #223152);
+    text-decoration: none;
+}
+
+.custom-footer .social a:hover {
+    background: var(--navy, #223152);
+    color: var(--white, #ffffff);
+}
+
+/* Structure pour assurer que le footer est toujours en bas */
+#main-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Hauteur minimale pour couvrir tout l'écran */
-  }
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding-top: 80px; /* Compense la hauteur de la navbar fixe */
+}

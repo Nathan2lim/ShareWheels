@@ -1,92 +1,199 @@
+/* filepath: /Users/nathangilbert/Desktop/Ynov/ShareWheels/app/static/app/css/app-add_ticket.css */
 /* =========================
-   STYLE POUR "Ajouter un Ticket"
+   TICKET FORM CONTAINER
    ========================= */
+.ticket-form-container {
+    max-width: 700px;
+    margin: 7rem auto 4rem;
+    padding: 0 15px;
+}
 
-/* Conteneur principal */
-.container.mt-5 {
-    /* Largeur max et centrage */
-    max-width: 600px;
-    margin: 5rem auto 2rem auto;
-    padding: 2rem;
-  
-    /* Fond blanc et léger arrondi pour un aspect pro */
-    background-color: #fff;
-    border-radius: 6px;
-  
-    /* Légère ombre */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Titre de la page */
-  .container.mt-5 h1 {
-    margin-bottom: 1.5rem;
+.ticket-form-header {
+    margin-bottom: 2.5rem;
     text-align: center;
-    font-size: 1.5rem;
-    /* Couleur d’accent (ou utilise var(--color-rouge-orange, #d35400)) */
-    color: var(--color-rouge-orange-dark, #c0392b);
-  }
-  
-  /* Les paragraphes générés par form.as_p */
-  .container.mt-5 form p {
-    margin-bottom: 1rem;
-  }
-  
-  /* Labels dans le formulaire (Django form.as_p) */
-  .container.mt-5 form p label {
+}
+
+.ticket-form-title {
+    color: var(--navy);
+    font-family: 'Teko', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.ticket-form-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 3px;
+    background-color: var(--gold);
+}
+
+/* Ticket Form Card */
+.ticket-form-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    border: 1px solid var(--medium-grey);
+    padding: 2rem;
+}
+
+/* Form Elements */
+.ticket-form p {
+    margin-bottom: 1.5rem;
+}
+
+.ticket-form p label {
     display: block;
-    margin-bottom: 0.2rem;
-    font-weight: 500;
-    /* Couleur de texte plus soutenue */
-    color: #333;
-  }
-  
-  /* Champs du formulaire (input, select, textarea) */
-  .container.mt-5 form p input[type="text"],
-  .container.mt-5 form p input[type="email"],
-  .container.mt-5 form p input[type="number"],
-  .container.mt-5 form p textarea,
-  .container.mt-5 form p select {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
+}
+
+.ticket-form p input[type="text"],
+.ticket-form p input[type="email"],
+.ticket-form p input[type="number"],
+.ticket-form p select,
+.ticket-form p textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--navy);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
-    /* Transition douce sur le focus */
-    transition: border-color 0.2s;
-  }
-  
-  .container.mt-5 form p input:focus,
-  .container.mt-5 form p textarea:focus,
-  .container.mt-5 form p select:focus {
-    border-color: var(--color-bleu, #2980b9);
+    transition: var(--transition);
+}
+
+.ticket-form p select {
+    background-color: var(--white);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23223152' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+.ticket-form p input:focus,
+.ticket-form p textarea:focus,
+.ticket-form p select:focus {
+    border-color: var(--gold);
     outline: none;
-  }
-  
-  /* Boutons */
-  .container.mt-5 form .btn-primary {
-    background-color: var(--color-bleu, #2980b9);
-    border-color: var(--color-bleu, #2980b9);
-    color: #fff;
-    margin-right: 0.5rem; /* écarte un peu le bouton Retour */
-  }
-  
-  .container.mt-5 form .btn-primary:hover,
-  .container.mt-5 form .btn-primary:focus {
-    background-color: var(--color-rouge-orange-dark, #c0392b);
-    border-color: var(--color-rouge-orange-dark, #c0392b);
-  }
-  
-  .container.mt-5 form .btn-secondary {
-    background-color: var(--color-jaune, #f1c40f);
-    border-color: var(--color-jaune, #f1c40f);
-    color: #333;
-  }
-  
-  .container.mt-5 form .btn-secondary:hover,
-  .container.mt-5 form .btn-secondary:focus {
-    background-color: var(--color-rouge-orange, #d35400);
-    border-color: var(--color-rouge-orange, #d35400);
-    color: #fff;
-  }
-  
+    box-shadow: 0 0 0 0.2rem rgba(248, 195, 0, 0.25);
+}
+
+/* Messages d'erreur */
+.ticket-form p .errorlist {
+    color: #c0392b;
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: var(--transition);
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background-color: transparent;
+    border: 2px solid var(--gold-dark);
+    color: var(--gold-dark);
+}
+
+.submit-btn:hover {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy-dark);
+}
+
+.cancel-btn {
+    background-color: transparent;
+    border: 2px solid var(--navy);
+    color: var(--navy);
+}
+
+.cancel-btn:hover {
+    background-color: var(--navy);
+    color: var(--white);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ticket-form-container .animate-on-scroll {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.ticket-form-container .ticket-form-card.animate-on-scroll {
+    animation-delay: 0.2s;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .ticket-form-title {
+        font-size: 2.5rem;
+    }
+    
+    .ticket-form-card {
+        padding: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+/* Backward compatibility with existing styles */
+.container.mt-5 {
+    max-width: 700px;
+    margin: 7rem auto 4rem;
+    padding: 0 15px;
+}
+
+.container.mt-5 h1 {
+    color: var(--navy);
+    font-family: 'Teko', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-align: center;
+}

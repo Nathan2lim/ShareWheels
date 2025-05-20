@@ -6,7 +6,62 @@
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-{% endblock %} {% block title %} Galerie {% endblock %} {% block main %}
+{% endblock %} {% block title %} SherWheels {% endblock %} {% block main %}
+
+<style>
+main {
+    padding-top: 0 !important;
+}
+</style>
+
+<!-- Overlay pour le menu burger -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Menu Burger -->
+<div class="burger-menu" id="burgerMenu">
+    <span class="close-btn" id="closeBtn"><i class="fas fa-times"></i></span>
+    
+    <div class="menu-section">
+        <h3>Festival</h3>
+        <ul>
+            <li><a href="{% url 'app:home' %}">Accueil</a></li>
+            <li><a href="#programmation">Programmation</a></li>
+            <li><a href="#gallery">Galerie</a></li>
+            <li><a href="{% url 'app:gallery' %}">Toutes les photos</a></li>
+            <li><a href="{% url 'carte:festival_map' %}">Plan du festival</a></li>
+        </ul>
+    </div>
+    
+    <div class="menu-section">
+        <h3>Billetterie</h3>
+        <ul>
+            <li><a href="{% url 'app:reservation' %}">Réserver un billet</a></li>
+            <li><a href="{% url 'app:mytickets' %}">Mes billets</a></li>
+        </ul>
+    </div>
+    
+    <div class="menu-section">
+        <h3>Mon compte</h3>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'applicompte:profile' %}">Mon profil</a></li>
+                <li><a href="{% url 'applicompte:edit_profile' %}">Modifier mon profil</a></li>
+                <li><a href="{% url 'applicompte:logout' %}">Déconnexion</a></li>
+                {% if user.is_staff %}
+                    <li><a href="{% url 'app:add_photo' %}">Ajouter une photo</a></li>
+                    <li><a href="{% url 'app:ticket_list' %}">Gestion des billets</a></li>
+                    <li><a href="{% url 'app:list_type_ticket' %}">Types de billets</a></li>
+                    <li><a href="{% url 'applicompte:manage_users' %}">Gestion des utilisateurs</a></li>
+                    <li><a href="/admin/">Administration</a></li>
+                {% endif %}
+            {% else %}
+                <li><a href="{% url 'applicompte:login' %}">Connexion</a></li>
+                <li><a href="{% url 'applicompte:register' %}">Inscription</a></li>
+                <li><a href="{% url 'applicompte:forgetpassword' %}">Mot de passe oublié</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
 
 <!-- ===== TOP ===== -->
 <section id="top" class="top angle-bottom" >
@@ -21,7 +76,7 @@
         <h2>Venez faire le plein de connaissances auto / moto !</h2>
         <div class="d-flex justify-content-between anchors">
             <a href="#venir" class="btn">Comment venir ?</a>
-            <a href="#billets" class="btn">Je prends mes billets</a>
+            <a href="{% url 'app:reservation' %}" class="btn">Je prends mes billets</a>
             <a href="#programmation" class="btn">La programmation</a>
         </div>
     </div>
@@ -137,12 +192,41 @@
         )}<small>s</small></span>`;
     }
     updateCountdown();
-    const timer = setInterval(updateCountdown, 100000);
+    const timer = setInterval(updateCountdown, 1000);
 
     /* Burger demo */
-    document
-        .querySelector(".burger")
-        .addEventListener("click", () => alert("Menu en construction"));
+    const burger = document.querySelector(".burger");
+    const overlay = document.getElementById("overlay");
+    const burgerMenu = document.getElementById("burgerMenu");
+    const closeBtn = document.getElementById("closeBtn");
+    
+    // Ouvrir le menu
+    burger.addEventListener("click", () => {
+        overlay.classList.add("open");
+        burgerMenu.classList.add("open");
+        document.body.style.overflow = 'hidden'; // Empêche le défilement de la page
+    });
+    
+    // Fermer le menu
+    function closeMenu() {
+        overlay.classList.remove("open");
+        burgerMenu.classList.remove("open");
+        document.body.style.overflow = ''; // Rétablit le défilement
+    }
+    
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    
+    // Fermer le menu quand on clique sur un lien (pour mobile)
+    const menuLinks = document.querySelectorAll('.burger-menu a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Ne ferme pas le menu si le lien est un ancre sur la même page
+            if (!link.getAttribute('href').startsWith('#') || link.getAttribute('href') === '#') {
+                closeMenu();
+            }
+        });
+    });
 </script>
 
 {% endblock %}

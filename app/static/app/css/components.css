@@ -1,0 +1,149 @@
+/* =========================
+   FORMULAIRES ET COMPOSANTS
+   ========================= */
+   
+/* Boutons */
+.btn-primary {
+    background-color: transparent;
+    color: var(--gold-dark, #D2B589);
+    border: 2px solid var(--gold-dark, #D2B589);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active {
+    background-color: var(--gold, #f8c300) !important;
+    color: var(--navy-dark, #0b1a34) !important;
+    border-color: var(--gold, #f8c300) !important;
+    box-shadow: none !important;
+}
+
+/* Champs de formulaire */
+.form-control, .form-select {
+    border: 1px solid var(--navy, #223152);
+    border-radius: 2px;
+    padding: 10px 15px;
+    color: var(--navy, #223152);
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--gold, #f8c300);
+    box-shadow: 0 0 0 0.2rem rgba(248, 195, 0, 0.25);
+}
+
+/* Labels */
+label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--navy, #223152);
+}
+
+/* Cards */
+.card {
+    border-radius: 2px;
+    border: 1px solid var(--navy, #223152);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--navy, #223152);
+    color: var(--white, #ffffff);
+    font-family: 'Teko', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 15px 20px;
+}
+
+/* Tableaux */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.table th {
+    background-color: var(--navy, #223152);
+    color: var(--white, #ffffff);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 15px;
+}
+
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(34, 49, 82, 0.2);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.table tr:hover {
+    background-color: rgba(248, 195, 0, 0.1);
+}
+
+/* Messages d'alerte */
+.alert {
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+.alert-success {
+    background-color: rgba(107, 190, 146, 0.2);
+    border-left: 4px solid #6bbe92;
+    color: #2c7a57;
+}
+
+.alert-warning {
+    background-color: rgba(248, 195, 0, 0.2);
+    border-left: 4px solid var(--gold, #f8c300);
+    color: #856404;
+}
+
+.alert-danger {
+    background-color: rgba(192, 57, 43, 0.2);
+    border-left: 4px solid #c0392b;
+    color: #721c24;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    justify-content: center;
+}
+
+.pagination .page-item .page-link {
+    color: var(--navy, #223152);
+    border: 1px solid var(--navy, #223152);
+    margin: 0 5px;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s;
+}
+
+.pagination .page-item.active .page-link,
+.pagination .page-item .page-link:hover {
+    background-color: var(--navy, #223152);
+    color: var(--white, #ffffff);
+    border-color: var(--navy, #223152);
+}

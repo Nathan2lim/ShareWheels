@@ -455,6 +455,106 @@ section.dark.angle-bottom::after {
     color: var(--white);
 }
 
+/* ========== MENU BURGER ========== */
+    /* Style du menu burger */
+    .burger-menu {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+        overflow-y: auto;
+        padding: 60px 20px 20px;
+    }
+    
+    .burger-menu.open {
+        right: 0;
+    }
+    
+    .burger-menu .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    
+    .burger-menu .close-btn:hover {
+        color: #f8c300;
+    }
+    
+    .burger-menu h3 {
+        color: white;
+        margin-bottom: 20px;
+        font-family: 'Teko', sans-serif;
+        font-size: 28px;
+        border-bottom: 2px solid #f8c300;
+        padding-bottom: 10px;
+    }
+    
+    .menu-section {
+        margin-bottom: 25px;
+    }
+    
+    .burger-menu ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .burger-menu ul li {
+        margin-bottom: 12px;
+    }
+    
+    .burger-menu ul li a {
+        color: white;
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        transition: color 0.2s;
+        display: block;
+        padding: 5px 0;
+    }
+    
+    .burger-menu ul li a:hover {
+        color: #f8c300;
+        transform: translateX(5px);
+    }
+    
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+    
+    .overlay.open {
+        display: block;
+    }
+    
+    /* Animation pour le bouton burger */
+    .burger {
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .burger:hover {
+        color: #f8c300;
+        transform: scale(1.05);
+    }
+    
+    .burger i {
+        margin-left: 5px;
+    }
+
 /* ========== MEDIA QUERIES ========== */
 @media (min-width: 1024px) {
     .gallery-banner img {

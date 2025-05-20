@@ -1,15 +1,3 @@
-.container {
-    margin-top: 100px;
-}
-
-.btn-primary {
-    width: 100%;
-    background-color: #007bff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
 /* =========================
    FORMULAIRE DE CONNEXION
    ========================= */
@@ -17,38 +5,96 @@
 /* Centrage du formulaire et style global */
 form {
     max-width: 400px;
-    margin: 5rem auto 2rem auto; /* Espace en haut et centrage horizontal */
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 6px;
+    margin: 8rem auto 2rem auto; /* Espace en haut et centrage horizontal */
+    background-color: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--medium-grey);
     /* Légère ombre pour un aspect professionnel */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Labels */
-  form label {
+    box-shadow: var(--box-shadow);
+}
+
+.form-title {
+    text-align: center;
+    color: var(--navy);
+    font-family: 'Teko', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+/* Labels */
+form label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  /* Champs de saisie */
-  form input[type="email"],
-  form input[type="password"] {
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Champs de saisie */
+form input[type="email"],
+form input[type="password"] {
     width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1.2rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--navy);
+    border-radius: var(--border-radius);
     font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
-    transition: border-color 0.2s;
-  }
-  
-  form input[type="email"]:focus,
-  form input[type="password"]:focus {
-    border-color: var(--color-bleu, #2980b9);
+    transition: var(--transition);
+}
+
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+    border-color: var(--gold);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(248, 195, 0, 0.25);
+}
+
+/* Bouton de soumission */
+form button[type="submit"] {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: transparent;
+    color: var(--gold-dark);
+    border: 2px solid var(--gold-dark);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+form button[type="submit"]:hover {
+    background-color: var(--gold);
+    color: var(--navy-dark);
+    border-color: var(--gold);
+}
+
+/* Liens supplémentaires */
+.form-links {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.form-links a {
+    color: var(--navy);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
+.form-links a:hover {
+    color: var(--gold);
+    transform: translateY(-2px);
+}
     outline: none;
   }
   

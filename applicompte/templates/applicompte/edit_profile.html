@@ -3,20 +3,31 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'applicompte/css/applicompte-general.css' %}">
-<link rel="stylesheet" href="{% static 'applicompte/css/applicompte-logout.css' %}">
+<link rel="stylesheet" href="{% static 'applicompte/css/applicompte-usersetting.css' %}">
 {% endblock %}
 
-{% block title %} Au revoir {% endblock %}
+{% block title %}Modifier mon profil{% endblock %}
 
 {% block main %}
-<div class="container mt-5">
-    <h1>Modifier mon profil</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Sauvegarder</button>
-        <a href="{% url 'applicompte:profile' %}" class="btn btn-secondary">Retour</a>
-    </form>
+<div class="container profile-container">
+    <div class="profile-header animate-on-scroll">
+        <h1 class="profile-title">Modifier mon profil</h1>
+    </div>
+    
+    <div class="profile-card animate-on-scroll">
+        <div class="profile-card-header">
+            <h2>Informations personnelles</h2>
+        </div>
+        <div class="profile-card-body">
+            <form method="post" class="edit-profile-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-actions">
+                    <button type="submit" class="action-btn save-btn">Sauvegarder</button>
+                    <a href="{% url 'applicompte:profile' %}" class="action-btn cancel-btn">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

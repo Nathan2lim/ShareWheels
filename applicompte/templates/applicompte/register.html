@@ -1,20 +1,21 @@
 
 
-{% extends "app/base.html" %} {% block title %} Inscription {% endblock %}
+{% extends "app/base.html" %} 
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'applicompte/css/applicompte-register.css' %}">
 {% endblock %}
 
-
+{% block title %}Inscription{% endblock %}
 
 {% block main %}
-
-    <form method="post">
+<div class="container">
+    <form method="post" class="animate-on-scroll">
         {% csrf_token %}
+        <h1 class="form-title">Créer un compte</h1>
         {{ form.as_p }}
         <button type="submit">S'inscrire</button>
     </form>
-    <a href="{% url 'applicompte:login' %}">Déjà inscrit ? Connectez-vous ici.</a>
-
+    <a href="{% url 'applicompte:login' %}" class="login-link">Déjà inscrit ? Connectez-vous ici.</a>
+</div>
 {% endblock %}

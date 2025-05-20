@@ -1,7 +1,21 @@
 {% if not request.path == '/' %}
-    <footer class="custom-footer">
-        <div class="container">
-            <p>Site développé entièrement par Thomas BIZET</p>
+{% load static %}
+<footer class="custom-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{% static 'app/images/footer.png' %}" alt="Logo footer" class="img-fluid mx-auto" style="width: 100%; max-width: 300px;">
+            </div>
         </div>
-    </footer>
+    
+    <div class="social">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+    
+    <p>SherWheels Festival - 2025</p>
+    </div>
+</footer>
 {% endif %}

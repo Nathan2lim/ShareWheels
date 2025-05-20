@@ -2,25 +2,35 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'app/css/app-gallery.css' %}">
-
 {% endblock %}
 
-{% block title %} Galerie {% endblock %}
+{% block title %}Galerie{% endblock %}
 {% block main %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Galerie de l'événement</h1>
-    <a href="{% url 'app:add_photo' %}" class="btn btn-primary mb-4">Ajouter une photo</a>
-    <div class="row">
+<div class="gallery-container">
+    <div class="gallery-header animate-on-scroll">
+        <h1 class="gallery-title">Galerie du festival</h1>
+        {% if user.is_staff %}
+        <a href="{% url 'app:add_photo' %}" class="gallery-add-btn">
+            <i class="fas fa-plus-circle"></i> Ajouter une photo
+        </a>
+        {% endif %}
+    </div>
+    
+    <div class="gallery-grid">
         {% for photo in photos %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}">
+        <div class="gallery-item animate-on-scroll">
+            <div class="gallery-card">
+                <img src="{{ photo.image.url }}" class="gallery-img" alt="{{ photo.title }}">
                 {% if photo.title %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ photo.title }}</h5>
+                <div class="gallery-card-body">
+                    <h3 class="gallery-card-title">{{ photo.title }}</h3>
                 </div>
                 {% endif %}
             </div>
+        </div>
+        {% empty %}
+        <div class="gallery-empty animate-on-scroll">
+            <p>Aucune photo n'a encore été ajoutée à la galerie.</p>
         </div>
         {% endfor %}
     </div>

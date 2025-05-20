@@ -1,19 +1,26 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block extra_css %}
-        <link rel="stylesheet" href="{% static 'app/css/app-add_photo.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/app-add_photo.css' %}">
 {% endblock %}
 
-{% block title %} Galerie {% endblock %}
+{% block title %}Ajouter une photo{% endblock %}
 
 {% block main %}
-<div class="container mt-5">
-    <h1>Ajouter une photo</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Ajouter</button>
-        <a href="{% url 'app:gallery' %}" class="btn btn-secondary">Retour à la galerie</a>
-    </form>
+<div class="photo-form-container">
+    <div class="photo-form-header animate-on-scroll">
+        <h1 class="photo-form-title">Ajouter une photo</h1>
+    </div>
+    
+    <div class="photo-form-card animate-on-scroll">
+        <form method="post" enctype="multipart/form-data" class="photo-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="action-btn submit-btn">Ajouter</button>
+                <a href="{% url 'app:gallery' %}" class="action-btn cancel-btn">Retour à la galerie</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

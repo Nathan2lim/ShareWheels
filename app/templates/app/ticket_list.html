@@ -4,37 +4,58 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'app/css/app-ticket_list.css' %}">
-
 {% endblock %}
 
-{% block title %} Liste des tickets {% endblock %}
+{% block title %}Mes Tickets{% endblock %}
 {% block main %}
-<div class="container mt-5">
-    <h1>Mes Tickets</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Statut</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ticket in tickets %}
-            <tr>
-                <td>{{ ticket.id }}</td>
-                <td>{{ ticket.date_creation|date:"d/m/Y H:i" }}</td>
-                <td>{{ ticket.type_ticket.nom_type }}</td>
-                <td>{{ ticket.status }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">Aucun ticket trouvé.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'app:add_ticket' %}" class="btn btn-success">Ajouter un Ticket</a>
+<div class="tickets-container">
+    <div class="tickets-header animate-on-scroll">
+        <h1 class="tickets-title">Mes Tickets</h1>
+        <a href="{% url 'app:add_ticket' %}" class="ticket-add-btn">
+            <i class="fas fa-plus-circle"></i> Ajouter un Ticket
+        </a>
+    </div>
+    
+    <div class="tickets-card animate-on-scroll">
+        <div class="tickets-table-wrapper">
+            <table class="tickets-table">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket.id }}</td>
+                        <td>{{ ticket.date_creation|date:"d/m/Y H:i" }}</td>
+                        <td>{{ ticket.type_ticket.nom_type }}</td>
+                        <td>
+                            <span class="ticket-status status-{{ ticket.status|lower }}">{{ ticket.status }}</span>
+                        </td>
+                        <td>
+                            <a href="#" class="ticket-action-btn" title="Voir le détail">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr class="ticket-empty">
+                        <td colspan="5">
+                            <div class="empty-message">
+                                <i class="fas fa-ticket-alt empty-icon"></i>
+                                <p>Vous n'avez pas encore de tickets</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

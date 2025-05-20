@@ -1,189 +1,102 @@
 {% if not request.path == '/' %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<!-- Overlay pour le menu burger -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Menu Burger -->
+<div class="burger-menu" id="burgerMenu">
+    <span class="close-btn" id="closeBtn"><i class="fas fa-times"></i></span>
+    
+    <div class="menu-section">
+        <h3>Festival</h3>
+        <ul>
+            <li><a href="{% url 'app:home' %}">Accueil</a></li>
+            <li><a href="{% url 'app:gallery' %}">Galerie</a></li>
+            <li><a href="{% url 'carte:festival_map' %}">Plan du festival</a></li>
+        </ul>
+    </div>
+    
+    <div class="menu-section">
+        <h3>Billetterie</h3>
+        <ul>
+            <li><a href="{% url 'app:reservation' %}">Réserver un billet</a></li>
+            <li><a href="{% url 'app:mytickets' %}">Mes billets</a></li>
+        </ul>
+    </div>
+    
+    <div class="menu-section">
+        <h3>Mon compte</h3>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'applicompte:profile' %}">Mon profil</a></li>
+                <li><a href="{% url 'applicompte:edit_profile' %}">Modifier mon profil</a></li>
+                <li><a href="{% url 'applicompte:search_users_page' %}">Recherche d'utilisateurs</a></li>
+                <li><a href="{% url 'applicompte:logout' %}">Déconnexion</a></li>
+                {% if user.is_staff %}
+                    <li><a href="{% url 'app:add_photo' %}">Ajouter une photo</a></li>
+                    <li><a href="{% url 'app:ticket_list' %}">Gestion des billets</a></li>
+                    <li><a href="{% url 'app:list_type_ticket' %}">Types de billets</a></li>
+                    <li><a href="{% url 'applicompte:manage_users' %}">Gestion des utilisateurs</a></li>
+                    <li><a href="/admin/">Administration</a></li>
+                {% endif %}
+            {% else %}
+                <li><a href="{% url 'applicompte:login' %}">Connexion</a></li>
+                <li><a href="{% url 'applicompte:register' %}">Inscription</a></li>
+                <li><a href="{% url 'applicompte:forgetpassword' %}">Mot de passe oublié</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container-fluid">
-    <!-- Marque / Logo -->
+    <!-- Logo -->
     <a class="navbar-brand" href="{% url 'app:home' %}">
-      Festival Automobile
+      SherWheels Festival
     </a>
 
-    <!-- Bouton "burger" pour mobile -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Menu principal -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <!-- Accueil -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'app:home' %}">Accueil</a>
-        </li>
-
-        <!-- Recherche -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'applicompte:search_users_page' %}"
-            >Recherche</a
-          >
-        </li>
-
-        {% if user.is_authenticated and user.is_staff %}
-
-        <!-- Galerie (avec dropdown) -->
-        <li class="nav-item dropdown">
-          <!-- data-bs-toggle="dropdown" pour activer la logique Bootstrap -->
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="galleryDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Galerie
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="galleryDropdown">
-            <li>
-              <a class="dropdown-item" href="{% url 'app:gallery' %}"
-                >Voir la Galerie</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'app:add_photo' %}"
-                >Ajouter une Photo</a
-              >
-            </li>
-          </ul>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'app:gallery' %}">
-            Galerie {{ user.userprofile.type_user }}
-          </a>
-        </li>
-        {% endif %} {% if user.is_authenticated and user.is_staff %}
-
-        <!-- Tickets (avec dropdown) -->
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="ticketDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Tickets
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="ticketDropdown">
-            <li>
-              <a class="dropdown-item" href="{% url 'app:mytickets' %}"
-                >Mes Tickets</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'app:add_ticket' %}"
-                >Ajouter un Ticket</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'app:ticket_list' %}"
-                >Liste des Tickets</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'app:add_type_ticket' %}">
-                Ajouter un Type de Ticket
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'app:list_type_ticket' %}">
-                Liste des Types de Tickets
-              </a>
-            </li>
-          </ul>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'app:mytickets' %}"> Tickets </a>
-        </li>
-        {% endif %} {% if user.is_authenticated %}
-        <!-- Réservation -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'app:reservation' %}">Réservation</a>
-        </li>
-        {% endif %} {% if user.is_staff %}
-        <!-- Admin -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'applicompte:manage_users' %}"
-            >Admin</a
-          >
-        </li>
-        {% endif %}
-
-        <!-- Profil et Connexion (avec dropdown) -->
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="accountDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Mon Compte
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-            <li>
-              <a
-                class="dropdown-item"
-                href="{% url 'applicompte:user_profile' request.user.username %}"
-              >
-                Mon profil
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'applicompte:profile' %}">
-                Mon Compte
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                href="{% url 'applicompte:edit_profile' %}"
-              >
-                Modifier le compte
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'applicompte:logout' %}">
-                Déconnexion
-              </a>
-            </li>
-          </ul>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'applicompte:login' %}">
-            Connexion
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'applicompte:register' %}">
-            Inscription
-          </a>
-        </li>
-        {% endif %}
-      </ul>
+    <!-- Burger Menu Button -->
+    <div class="burger" title="Menu">
+        Menu
+        <i class="fas fa-bars"></i>
     </div>
   </div>
 </nav>
+
+<!-- Script Menu Burger -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const burger = document.querySelector(".burger");
+    const overlay = document.getElementById("overlay");
+    const burgerMenu = document.getElementById("burgerMenu");
+    const closeBtn = document.getElementById("closeBtn");
+    
+    // Ouvrir le menu
+    burger.addEventListener("click", () => {
+        overlay.classList.add("open");
+        burgerMenu.classList.add("open");
+        document.body.style.overflow = 'hidden'; // Empêche le défilement de la page
+    });
+    
+    // Fermer le menu
+    function closeMenu() {
+        overlay.classList.remove("open");
+        burgerMenu.classList.remove("open");
+        document.body.style.overflow = ''; // Rétablit le défilement
+    }
+    
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    
+    // Fermer le menu quand on clique sur un lien (pour mobile)
+    const menuLinks = document.querySelectorAll('.burger-menu a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Ne ferme pas le menu si le lien est un ancre sur la même page
+            if (!link.getAttribute('href').startsWith('#') || link.getAttribute('href') === '#') {
+                closeMenu();
+            }
+        });
+    });
+  });
+</script>
 {% endif %}
