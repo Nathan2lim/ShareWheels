@@ -79,6 +79,5 @@ coverage.xml
 .dockerignore
 docker-compose.override.yml
 
-/images/
 /event_photos/
 /certs/
