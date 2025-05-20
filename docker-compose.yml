@@ -15,8 +15,8 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx-vhosts:/etc/nginx/vhost.d
       - proxy_certs:/etc/nginx/certs:ro
-      - proxy_vhost:/etc/nginx/vhost.d
       - proxy_html:/usr/share/nginx/html
 
   acme-companion:
@@ -59,8 +59,10 @@ services:
       VIRTUAL_PORT: 8000
       LETSENCRYPT_HOST: sherwheels.fr
       LETSENCRYPT_EMAIL: contact@sherwheels.fr
-      CLIENT_MAX_BODY_SIZE: 50m 
+      CLIENT_MAX_BODY_SIZE: 50m
     env_file: .env
+    labels:
+      - com.github.nginxproxy.nginx-proxy.client_max_body_size=50m
     command: >
       sh -euc "
         until mysqladmin ping -h db --silent; do sleep 2; done
