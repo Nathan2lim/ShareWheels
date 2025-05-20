@@ -21,11 +21,11 @@ else
     echo "2. Nettoyage du dossier 'staticfiles'..."
     rm -rf /srv/ShareWheels/staticfiles
 
-    echo "3. Nettoyage du dossier 'images'..."
-    rm -rf /srv/ShareWheels/images
+    #echo "3. Nettoyage du dossier 'images'..."
+    #rm -rf /srv/ShareWheels/images
 
-    echo "4. Nettoyage du dossier 'event_photos'..."
-    rm -rf /srv/ShareWheels/event_photos
+   # echo "4. Nettoyage du dossier 'event_photos'..."
+    #rm -rf /srv/ShareWheels/event_photos
 
     # Fonction pour remplacer les espaces dans les noms de fichiers d'un dossier
     replace_spaces() {
