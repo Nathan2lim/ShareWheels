@@ -110,10 +110,12 @@ a {
     font-weight: 700;
     line-height: 125%; /* 80px */
     text-transform: uppercase;
+    text-align: center !important;
 }
 
 #top .anchors {
     margin-top: 48px;
+    align-items: center !important;
 }
 
 #top a {
@@ -574,4 +576,362 @@ section.dark.angle-bottom::after {
     .brand-mid {
         font-size: 2rem;
     }
+}
+
+/* iPhone 13 et appareils similaires */
+@media (max-width: 390px) {
+    /* Ajustements généraux */
+    :root {
+        --section-padding: 4rem 1.5rem;
+    }
+
+    /* CONSOLIDATED HEADER STYLES FOR MOBILE */
+    /* This block is intended to define the primary styles for #top and its children on mobile, overriding previous rules. */
+    #top {
+        position: relative !important;
+        padding: 1rem !important; /* Uniform padding */
+        height: auto !important;
+    }
+
+    #top a {            
+        line-height: 21%; /* 30px */
+    }
+
+    /* Conteneur pour le logo et le contenu principal (h2, ancres) */
+    #top .container {
+        padding-top: 0 !important;
+        padding-left: 0 !important; /* Logo aligns to the left of #top's content area */
+        padding-right: 95px !important; /* Increased space for the burger menu */
+        display: block !important; /* Ensures content flows top-to-bottom */
+    }
+
+    /* Logo Sherwheels Festival */
+    #top .container img.mx-auto {
+        display: block !important;
+        margin-left: 0 !important; /* Align logo to the left */
+        margin-right: auto !important; /* Prevent stretching */
+        margin-top: 0 !important;
+        margin-bottom: 1rem !important; /* Space below logo */
+        max-width: 2% !important; /* Slightly reduced max-width for logo */
+        height: auto !important;
+    }
+
+    /* Wrapper du menu burger (le div.d-flex.justify-content-end) */
+    /* This targets the div that directly contains the .burger element */
+    #top > .d-flex.justify-content-end {
+        position: absolute !important;
+        top: 1rem !important;    /* Aligned with #top's padding */
+        right: 1rem !important;   /* Aligned with #top's padding */
+        width: auto !important;   /* Fit to content width */
+        z-index: 1050 !important; /* Ensure it's above other elements in #top */
+        padding: 0 !important;    /* Override any inline padding (like p-3) */
+    }
+
+    /* Texte "MENU" et icône burger */
+    .burger {
+        position: static !important; /* Normal flow within its absolute positioned parent */
+        display: flex !important; /* For aligning text and icon */
+        align-items: center !important; /* Vertical alignment for "MENU" and icon */
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 1rem !important;  /* Size for "MENU" text */
+        font-weight: 600 !important;
+        color: #FFFFFF !important;   /* Ensure visibility */
+        line-height: 1.2 !important;
+        text-transform: uppercase !important;
+        padding: 0.25rem !important; /* Small padding for easier clicking */
+    }
+
+    /* Icône burger (les barres) */
+    .burger i {
+        font-size: 1.3rem !important; /* Size for the burger icon */
+        margin-left: 0.3rem !important; /* Space between "MENU" and icon */
+    }
+
+    /* Styles for H2 and Anchors under logo */
+    #top h2 {
+        font-size: 15px !important;
+        margin-top: 1rem !important;
+        /* text-align: left !important; */
+        /* color: #FFFFFF !important; Ensure text is visible */
+    }
+
+    #top .anchors {
+        margin-top: 1rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* Align buttons to the left */
+        gap: 0.75rem !important;
+    }
+
+    #top .anchors a {
+        font-size: 16px !important;
+        padding: 12px 16px !important;
+        width: 100% !important; /* Buttons take full available width */
+        max-width: 280px; /* But not excessively wide */
+        box-sizing: border-box !important; /* Consistent padding and border behavior */
+        text-align: center !important;
+    }
+    /* END OF CONSOLIDATED HEADER STYLES */
+
+    /* Countdown */
+    #ctdw h2 {
+        font-size: 42px;
+    }
+
+    #countdown span {
+        font-size: 80px;
+    }
+
+    #countdown small {
+        font-size: 24px;
+    }
+
+    /* Comment venir */
+    #venir h2 {
+        font-size: 42px;
+    }
+
+    #venir a {
+        font-size: 18px;
+        padding: 16px;
+    }
+
+    /* Programmation – header responsive */
+    #programmation h2 {
+        font-size: 20px;
+    }
+
+    /* Programmation – éviter overflow */
+    #programmation .space {
+        margin-bottom: 20px;
+    }
+
+    /* Gallery */
+    #gallery h2 {
+        font-size: 42px;
+    }
+
+    #gallery .carousel {
+        margin: 56px 0;
+    }
+
+    #gallery .carousel-arrow {
+        font-size: 4rem;
+        padding: 0 1rem;
+    }
+
+    #gallery .carousel img {
+        width: 100%;
+        height: 300px;
+    }
+
+    #gallery .carousel img:first-child,
+    #gallery .carousel img:last-child {
+        display: none;
+    }
+
+    #gallery .row {
+        gap: 24px;
+    }
+
+    #gallery .row.pics .col-md-4 {
+        padding: 12px;
+    }
+
+    #gallery .row.pics img {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+    }
+
+    #gallery .p {
+        font-size: 32px;
+    }
+
+    /* Map */
+    #map iframe {
+        height: 400px;
+    }
+
+    #map h2 {
+        font-size: 42px;
+    }
+
+    /* Footer */
+    #footer {
+        padding: 4rem 1.5rem 0;
+    }
+
+    #footer .social {
+        margin-top: 44px;
+        margin-bottom: 16px;
+    }
+
+    /* Menu Burger */
+    .burger-menu {
+        width: 100%;
+        right: -100%;
+    }
+
+    /* Burger (icône MENU) positionné en haut à droite, 20px plus bas */
+    .burger {
+        position: absolute;
+        top: 36px;
+        right: 16px;
+    }
+
+    .burger i {
+        font-size: 24px;
+        margin-left: 8px;
+    }
+
+    /* Menu burger : 80% de la largeur, glisse correctement depuis la droite */
+    .burger-menu {
+        width: 80%;
+        max-width: 300px;
+        right: -80%;
+        padding: 80px 16px 16px;
+        transition: right 0.3s ease-in-out;
+    }
+
+    .burger-menu.open {
+        right: 0;
+    }
+
+    /* Bouton fermer à l’intérieur */
+    .burger-menu .close-btn {
+        top: 16px;
+        right: 16px;
+        font-size: 24px;
+    }
+
+    /* Liens du menu centrés et espacés */
+    .burger-menu ul li a {
+        font-size: 18px;
+        padding: 12px 0;
+        text-align: left;
+    }
+
+    /* Overlay reste inchangé mais s’assure d’être sous le menu */
+    .overlay {
+        z-index: 100;
+    }
+
+    /* Wrapper burger repositionné pour logo à gauche et burger à droite */
+    #top > .d-flex.justify-content-end {
+        left: 0 !important;
+        right: 0 !important;
+        top: 36px !important;
+        justify-content: flex-end !important;
+        padding: 0 16px;
+    }
+
+    /* Logo aligné à gauche et burger à droite */
+    #top .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #top .container img.mx-auto {
+        margin: 0;
+    }
+
+    /* Burger (MENU) déjà positionné à droite */
+    .burger {
+        /* inchangé, top/right définis précédemment */
+    }
+
+    /* Retrait des styles précédents qui cassaient la mise en page du logo/burger */
+    #top > .d-flex.justify-content-end {
+        /* Sera redéfini ci-dessous */
+    }
+    #top .container {
+        /* Sera redéfini ci-dessous */
+    }
+    #top .container img.mx-auto {
+        /* Sera redéfini ci-dessous */
+    }
+
+    /* Nouveaux styles pour le header mobile */
+    #top {
+        position: relative !important; /* Nécessaire pour le positionnement absolu du burger */
+        padding-top: 1rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    #top > .d-flex.justify-content-end { /* Conteneur parent du burger */
+        position: absolute !important;
+        top: 1rem !important;       /* Aligné avec le padding de #top */
+        right: 1rem !important;     /* Aligné avec le padding de #top */
+        left: auto !important;      /* Important pour ne pas étirer */
+        width: auto !important;     /* S'adapte au contenu (le burger) */
+        z-index: 1001 !important;   /* Au-dessus des autres éléments */
+        padding: 0 !important;      /* Pas de padding interne pour ce wrapper */
+        justify-content: flex-start !important; /* Si jamais il y avait plusieurs enfants */
+    }
+
+    .burger { /* L'élément burger "MENU =" */
+        position: relative !important; /* Positionnement normal dans son parent */
+        top: auto !important;
+        right: auto !important;
+        font-size: 28px !important; /* Taille mobile */
+        /* Les autres styles du burger (couleur, icône) sont conservés */
+    }
+
+    #top .container { /* Conteneur pour le logo et le contenu principal (h2, ancres) */
+        padding-top: 0 !important;
+        padding-right: 2% !important; /* Espace à droite pour le burger. Ajustez cette valeur si besoin. */
+        display: block !important;     /* Assure que ce n'est pas flex */
+    }
+
+    #top .container img.mx-auto { /* Le logo */
+        display: block !important;
+        margin-left: 0 !important;      /* Logo complètement à gauche du .container */
+        margin-right: auto !important;  /* Annule le centrage de mx-auto */
+        margin-top: 0 !important;       /* Logo en haut du .container */
+        margin-bottom: 1rem !important; /* Espace avant le h2 */
+        max-width: 150px !important; /* Taille maximale plus petite pour le logo */
+    }
+
+    /* Conteneur du bouton burger (celui avec les styles inline à surcharger) */
+    #top > .d-flex.justify-content-end {
+        position: absolute !important;
+        top: 1rem !important;    /* Aligné avec le padding de #top */
+        right: 1rem !important;   /* Aligné avec le padding de #top */
+        left: auto !important;
+        width: auto !important;
+        z-index: 1001 !important;
+        padding: 0 !important; /* Pas de padding pour ce wrapper */
+    }
+
+    .burger { /* Le texte "MENU" et l'icône burger */
+        position: static !important; /* Positionnement normal dans son parent (.d-flex) */
+        font-size: 1.1rem !important; /* Taille du texte "MENU" ajustée */
+        color: #FFF; /* Assurer la visibilité */
+        /* Les autres styles (font-family, weight, etc.) sont hérités ou déjà définis */
+    }
+
+    .burger i { /* L'icône burger (les barres) */
+        font-size: 1.4rem !important; /* Taille de l'icône ajustée */
+        margin-left: 0.25rem !important; /* Petit espace entre "MENU" et l'icône */
+    }
+
+    /* Ajustements pour le panneau du menu burger qui s'ouvre */
+    .burger-menu { 
+        top: 0; /* Aligner avec le haut de la fenêtre */
+        padding-top: 4rem; /* Espace en haut du panneau pour ne pas être caché par le header */
+        /* width, max-width, right, etc. sont gérés par les styles précédents pour l'ouverture/fermeture */
+    }
+
+    .burger-menu .close-btn {
+        top: 1rem; /* Positionnement du bouton fermer */
+        right: 1rem;
+        font-size: 22px; /* Taille ajustée */
+    }
+
+    #gallery {
+        display: none !important; /* Masquer la galerie sur mobile */
+    }
+
+    /* ... Reste du code pour @media (max-width: 390px) ... */
 }
