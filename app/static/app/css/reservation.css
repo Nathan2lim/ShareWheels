@@ -26,11 +26,13 @@
      ========================= */
   /* Grille flexible pour afficher plusieurs tickets */
   .ticket-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* un peu plus large */
+  gap: 1.5rem;
+  justify-items: center;   /* centre la carte dans la cellule */
+    justify-content: center;   /* centre l’ensemble de la grille */
+
+}
   
   /* Carte d’un ticket individuel */
   .ticket {
@@ -42,8 +44,7 @@
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 45%;
-
+    width: 100%; 
   }
   
   .ticket:hover {
