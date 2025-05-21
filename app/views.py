@@ -43,10 +43,7 @@ def create_payment(request, ticket_type_id):
     ticket_type = get_object_or_404(TypeTicket, id=ticket_type_id)
 
     # -- Choix du schéma et du domaine selon l’environnement ----------
-    if settings.DEBUG:                           # ⇢ exécutez `runserver`
-        base = "http://127.0.0.1:8000"           # localhost accepté en HTTP
-    else:
-        base = f"https://{request.get_host()}"   # prod en HTTPS
+    base = f"https://{request.get_host()}"   # prod en HTTPS
 
     success_url = (
         f"{base}{reverse('app:success')}"
