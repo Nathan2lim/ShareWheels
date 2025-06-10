@@ -10,6 +10,9 @@ if [ "${LOCAL}" = "1" ]; then
   echo "🛠 Environnement local (dev) détecté"
   docker-compose down
   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d
+  echo "✅ Déploiement local terminé"
+
+
 else
 
     cd /srv/ShareWheels
